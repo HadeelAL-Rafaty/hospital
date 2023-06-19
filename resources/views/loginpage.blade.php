@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-   
-    <link rel="stylesheet" href="{{asset ('css/login.css') }}">
+   <link rel="stylesheet" href="{{asset ('css/login.css')}}">
     <title>Login</title>
 </head>
 <body>
@@ -26,7 +25,7 @@
                 <a href="#" class="forgot">Forgot Password?</a>
                 <input type="submit" value="Login">
             </form>
-            <a href="{{ ('signup') }}" class="sign-up">Sign Up</a>
+            <a href="{{('signup')}}" class="sign-up">Sign Up</a>
         </div>
     </div>
 </body>

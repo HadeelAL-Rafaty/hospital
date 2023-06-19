@@ -21,12 +21,20 @@ Route::get('appointment', function () {
     return view('appointment');
 });
 
+Route::get('about', function () {
+    return view('about');
+});
+
 Route::get('contact', function () {
     return view('contact');
 });
 
-Route::get('Home', function () {
-    return view('Home');
+Route::get('doctors', function () {
+    return view('doctors');
+});
+
+Route::get('index', function () {
+    return view('index');
 });
 
 Route::get('loginpage', function () {

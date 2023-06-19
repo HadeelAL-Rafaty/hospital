@@ -1,55 +1,52 @@
-<footer class="footer-distributed">
+<footer class="page-footer">
+    <div class="container">
+      <div class="row px-md-3">
+        <div class="col-sm-6 col-lg-3 py-3">
+          <img src=" {{asset ('images/logo2.png')}}" alt="" width="200" height="100">
 
-      <div class="footer-left">
 
-        <img class="logo-footer" src="images/logo2.png" height="100" width="240"  >
+        </div>
 
-        <p class="footer-links">
-          <a href="{{ ('Home') }}" class="link-1">Home</a>
-          <a href="{{ ('appointment') }}">About Us</a>
-          <a href="{{ ('appointment') }}">Services</a>
-          <a href="{{ ('appointment') }}">Clinics</a>
-          <a href="{{ ('contact') }}">Contact</a>
-          <a href="{{ ('appointment') }}">Location</a>
-        </p>
+<div class="col-sm-6 col-lg-3 py-3">
+          <h5>Times of work</h5>
+          <ul class="footer-menu">
+           <li><a href="#">Saturday - Thursday, 8am to 10pm</a></li>
+           <br>
+           <h5>More</h5>
+           <li><a href="#">Join as Doctor</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 col-lg-3 py-3">
+          <h5>Our Location</h5>
+          <ul class="footer-menu">
+            <li><a href="#">Al-Nusirat Camp Nuseirat - Market - Al-Saa`a Tower</a></li>
+          </ul>
+             </div>
+       
 
-        <p class="footer-company-name">Al-Saa'a Medical Complex © 2023</p>
+
+        <div class="col-sm-6 col-lg-3 py-3">
+          <h5>Contact</h5>
+          <a href="#" class="footer-link">+972 000 000</a>
+          <a href="#" class="footer-link">Al-Saa_Medical@gmail.com</a>
+
+          <h5>Social Media</h5>
+          <div class="footer-sosmed mt-3">
+            <a href="#" target="_blank"><span class="mai-logo-facebook-f"></span></a>
+            <a href="#" target="_blank"><span class="mai-logo-twitter"></span></a>
+            <a href="#" target="_blank"><span class="mai-logo-google-plus-g"></span></a>
+            <a href="#" target="_blank"><span class="mai-logo-instagram"></span></a>
+            
+
+          </div>
+      
+        
+          </div>
+        </div>
       </div>
-
-      <div class="footer-center">
-
-        <div>
-          <i class="fa fa-map-marker"></i>
-          <p><span>Al-Nusirat Camp</span> Nuseirat - Market - Al-Saa`a Tower</p>
-        </div>
-
-        <div>
-          <i class="fa fa-phone"></i>
-          <p>(+(972)-12 -4567)</p>
-        </div>
-
-        <div>
-          <i class="fa fa-envelope"></i>
-          <p><a href="mailto:support@company.com"> (Al-Saa_Medical.gmail)</a></p>
-        </div>
-
+      
       </div>
+      <hr>
 
-      <div class="footer-right">
-
-        <p class="footer-company-about">
-          <span>About Al-Saa'a Medical Complex</span>
-          Best Medical Care For Yourself and Your Family
-          Which facilitates easy access to most of the residentsof the Gaza Strip The complex contains a large number of specialized clinics that provide services for all family members in one place
-        </p>
-
-        <div class="footer-icons">
-
-          <a href="#"><i class="fa fa-facebook" aria-hidden="true" ></i></a>
-          <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-          
-        </div>
-
-      </div>
-
-    </footer>
+    </div>
+  </footer>

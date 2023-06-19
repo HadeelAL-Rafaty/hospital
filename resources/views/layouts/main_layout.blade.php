@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 @include('includes.pageStyle')
 
@@ -15,10 +15,12 @@
 
 <!--Contact -->
 
+@yield('about')
 @yield('appointment')
+@yield('contact')
+@yield('doctor')
 @yield('Home')
 
-@yield('contact')
 
 <!--Contact -->
 
@@ -27,5 +29,7 @@
 @include('includes.footer')
 
  <!--End Footer -->
+ @include('includes.pageJS')
+
 </body>
 </html>
