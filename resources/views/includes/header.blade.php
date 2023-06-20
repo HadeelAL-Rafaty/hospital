@@ -27,7 +27,7 @@
     <div class="container">
       <img src="{{asset ('images/logo.png')}}" alt="" width="150" height="60">
 
- 
+
 
       <div class="collapse navbar-collapse" id="navbarSupport">
         <ul class="navbar-nav ml-auto">
@@ -47,8 +47,11 @@
             <a class="nav-link" href="{{ ('contact') }}">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-primary ml-lg-3" href="{{ ('loginpage') }}">Login / Register</a>
+            <a class="btn btn-primary ml-lg-3" href="{{ route('login') }}">Login</a>
           </li>
+            <li class="nav-item">
+                <a class="btn btn-primary ml-lg-3" href="{{ route('register') }}">Register</a>
+            </li>
         </ul>
       </div> <!-- .navbar-collapse -->
     </div> <!-- .container -->
