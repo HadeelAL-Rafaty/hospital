@@ -74,4 +74,8 @@
         </div>
     </div>
 </div>
+<div class="text-center">
+    <a href="{{ ('index') }}" class="btn btn-secondary btn-sm">
+        <i class="mai-home-outline"></i> Back to dashboard </a>
+</div>
 @endsection
