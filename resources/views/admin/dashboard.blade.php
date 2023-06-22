@@ -1,7 +1,15 @@
 @extends('layouts.admin.admin_layout')
 
    @section('admin')
+       <div class="col-lg-9">
 
+           @if(session('message'))
+               <h2>{{session('message')}}</h2>
+               <h2 style="background-color: red">hello</h2>
+
+           @endif
+
+       </div>
     <div class="page-wrapper">
         <div class="content">
             <div class="row">

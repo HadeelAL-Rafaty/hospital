@@ -24,7 +24,15 @@ class StoreDoctorRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+
+            'firstname'=> 'required|string',
+            'lastname'=> 'required|string',
+            'speacality'=> 'required|string',
+            'phone'=> 'required|string|min:8|max:11',
+            'avatar'=> 'required|mimes:png,jpg,jpeg',
+            'biography'=> 'required|text',
+            'status'=> 'required|string',
+            'address'=>'required|text',
         ];
     }
 }

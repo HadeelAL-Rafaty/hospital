@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Models\Doctor;
+use App\Models\Store;
 
 class DoctorController extends Controller
 {
@@ -16,7 +17,9 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        //
+       // $doctor=Doctor::all();
+
+        return view('admin.doctor.home');
     }
 
     /**
@@ -24,9 +27,9 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){
+        return view('admin.doctor.create');
+
     }
 
     /**
@@ -37,7 +40,26 @@ class DoctorController extends Controller
      */
     public function store(StoreDoctorRequest $request)
     {
-        //
+        $name = $request->input('name');
+        $address = $request->input('address');
+        $logo = $request->input('logo');
+
+        $store =new Store;
+        $store->name = $name;
+        $store->address = $address;
+        $auploadPath='auploads/store/';
+        if($request->hasFile('logo')){
+            $file=$request->file('logo');
+            $ext=$file->getClientOriginalExtension();
+            $filename=time().'.'.$ext;
+            $file->move('auploads/store/',$filename);
+            $request->logo =$auploadPath.$filename;
+        }
+        $store->logo = $filename;
+        $store->save();
+        // dd($request);
+
+        return redirect('admin/store')->with('massage', 'Store Add Successfully');
     }
 
     /**

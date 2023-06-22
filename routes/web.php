@@ -56,4 +56,14 @@ Route::get('admin/dashboard', [\App\Http\Controllers\HomeController::class, 'ind
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group (function() {
     Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
+
+
+    //Doctor Route
+    Route::get('doctor',[App\Http\Controllers\Admin\DoctorController::class,'index']);
+    Route::get('doctor/create',[App\Http\Controllers\Admin\DoctorController::class,'create']);
+    Route::post('doctor',[App\Http\Controllers\Admin\ProductController::class,'store']);
+
+
+
+
 });

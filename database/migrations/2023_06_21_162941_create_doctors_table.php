@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('speacality');
             $table->date('date_of_birth');
-            $table->string('gender')->comment('M = Male' , 'F = Female');
+            $table->string('gender')->comment('M = Male , F = Female');
             $table->text('address');
-            $table->string('phone');
+            $table->num('phone');
             $table->string('avatar');
             $table->text('biography');
             $table->tinyInteger('status')->default(0);
