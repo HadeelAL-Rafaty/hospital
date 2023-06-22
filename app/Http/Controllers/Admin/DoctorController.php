@@ -40,26 +40,47 @@ class DoctorController extends Controller
      */
     public function store(StoreDoctorRequest $request)
     {
-        $name = $request->input('name');
+        $firstname= $request->input('firstname');
+        $lastname = $request->input('lastname');
+        $date_of_birth = $request->input('date_of_birth');
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $speacality = $request->input('speacality');
+        $gender = $request->input('gender');
         $address = $request->input('address');
-        $logo = $request->input('logo');
+        $phone= $request->input('phone');
+        $avatar= $request->input('avatar');
+        $biography= $request->input('biography');
+        $status= $request->input('status');
 
-        $store =new Store;
-        $store->name = $name;
-        $store->address = $address;
+
+
+
+        $doctor =new Doctor();
+        $doctor->firstname = $firstname;
+        $doctor->lastname = $lastname;
+        $doctor->date_of_birth = $date_of_birth;
+        $doctor->email = $email;
+        $doctor->password = $password;
+        $doctor->speacality = $speacality;
+        $doctor->gender = $gender;
+        $doctor->phone = $phone;
+        $doctor->biography = $biography;
+        $doctor->status = $status;
+        $doctor->address = $address;
         $auploadPath='auploads/store/';
-        if($request->hasFile('logo')){
-            $file=$request->file('logo');
+        if($request->hasFile('avatar')){
+            $file=$request->file('avatar');
             $ext=$file->getClientOriginalExtension();
             $filename=time().'.'.$ext;
-            $file->move('auploads/store/',$filename);
-            $request->logo =$auploadPath.$filename;
+            $file->move('auploads/doctor/',$filename);
+            $request->avatar =$auploadPath.$filename;
         }
-        $store->logo = $filename;
-        $store->save();
+        $doctor->avatar = $filename;
+        $doctor->save();
         // dd($request);
 
-        return redirect('admin/store')->with('massage', 'Store Add Successfully');
+        return redirect('admin/doctor')->with('massage', 'Doctor Add Successfully');
     }
 
     /**

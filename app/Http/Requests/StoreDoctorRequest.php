@@ -32,7 +32,9 @@ class StoreDoctorRequest extends FormRequest
             'avatar'=> 'required|mimes:png,jpg,jpeg',
             'biography'=> 'required|text',
             'status'=> 'required|string',
+            'gender'=> 'required|string',
             'address'=>'required|text',
+            'date_of_birth'=> 'required|date|before_or_equal:today',
         ];
     }
 }
