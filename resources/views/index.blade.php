@@ -1,7 +1,13 @@
 @extends('layouts.main_layout')
-  
-   @section('Home')
 
+   @section('Home')
+       <div class="card-body">
+           @if (session('error'))
+               <div class="alert alert-danger" role="alert">
+                   {{ session('error') }}
+               </div>
+           @endif
+       </div>
   <div class="page-hero bg-image overlay-dark" style="background-image: url('images/bg_image_1.jpg');">
     <div class="hero-section">
       <div class="container text-center wow zoomIn">
@@ -15,12 +21,12 @@
 
   <!-- Section: boxes -->
     <section id="boxes" class="home-section paddingtop-80">
-  
+
     <div class="container" style="padding-top:50px ;">
       <div class="row">
         <div class="col-sm-3 col-md-3">
           <div class="wow fadeInUp" data-wow-delay="0.2s">
-            <div class="box text-center" > 
+            <div class="box text-center" >
               <i class="fa fa-check fa-3x circled bg-skin"></i>
               <img src="{{asset ('images/check.png')}}" alt="" width="100" height="100">
               <h4 class="h-bold" style="padding-top: 20px; font-weight: bold;">Make an appoinment</h4>
@@ -33,7 +39,7 @@
         <div class="col-sm-3 col-md-3">
           <div class="wow fadeInUp" data-wow-delay="0.2s">
             <div class="box text-center">
-              
+
               <i class="fa fa-list-alt fa-3x circled bg-skin"></i>
               <img src="{{asset ('images/chat.png')}}" alt="" width="100" height="100">
               <h4 class="h-bold" style="padding-top: 20px; font-weight: bold;">Request consulting</h4>
@@ -58,7 +64,7 @@
         <div class="col-sm-3 col-md-3">
           <div class="wow fadeInUp" data-wow-delay="0.2s">
             <div class="box text-center">
-              
+
               <i class="fa fa-hospital-o fa-3x circled bg-skin"></i>
               <img src="{{asset ('images/report.png')}}" alt="" width="100" height="100">
               <h4 class="h-bold" style="padding-top: 20px; font-weight: bold;">Get diagnostic report</h4>
@@ -79,7 +85,7 @@
         <div class="row align-items-center">
           <div class="col-lg-6 py-3 wow fadeInUp">
             <h1>Welcome to <br> Al-Saa'a Medical group</h1>
-            <p class="text-grey mb-4">Al-Saaa Complex takes care of your care in a professional manner that suits your priorities and takes into account all your medical needs 
+            <p class="text-grey mb-4">Al-Saaa Complex takes care of your care in a professional manner that suits your priorities and takes into account all your medical needs
               <br>has accumulated experience and years of hard work in the medical field
              <br> integrated medical services that include medical specialties, to be provided in one place and through customer service
             </p>
@@ -179,7 +185,7 @@
     </div>
   </div>
 
-  
+
 
   <div class="page-section">
     <div class="container">
@@ -207,7 +213,7 @@
                     <option>laboratory Al-Sa'aa</option>
             </select>
           </div>
-          
+
           <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
             <textarea name="message" id="message" class="form-control" rows="6" placeholder="Enter message.."></textarea>
           </div>
@@ -218,7 +224,7 @@
     </div>
   </div> <!-- .page-section -->
 
-  
+
 
 
 @stop

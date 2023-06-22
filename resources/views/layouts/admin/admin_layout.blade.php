@@ -5,15 +5,20 @@
 
 
 <head>
-    
+
 </head>
 
 <body>
 <div class="main-wrapper">
-    {{-- Header --}}
+{{--
+       Header
+--}}
     @include('includes.admin.adminHeader')
     {{-- end Header --}}
+    {{-- Sidebar --}}
+    @include('includes.admin.adminSidebar')
 
+{{-- end Sidebar --}}
 
     @yield('admin')
 
