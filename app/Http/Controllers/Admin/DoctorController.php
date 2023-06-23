@@ -105,7 +105,7 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        //
+        return view('admin.doctor.edit' , compact('doctor'));
     }
 
     /**
@@ -115,10 +115,27 @@ class DoctorController extends Controller
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDoctorRequest $request, Doctor $doctor)
+    public function update(UpdateDoctorRequest $request,  $doctor)
     {
-        //
-    }
+        $validatedData = $request->validated();
+
+        $doctor = Doctor::findOrFail($doctor);
+
+        $doctor->name = $validatedData['name'];
+        $doctor->phone = $validatedData['phone'];
+        $doctor->email = $validatedData['email'];
+
+        $doctor->date_of_birth = $validatedData['date_of_birth'];
+       
+        $doctor->address = $validatedData['address'];
+        $doctor->gender = $validatedData['gender'];
+
+       
+    $doctor->update();
+
+    return redirect('admin/doctor')->with('message' , 'Doctor Updated Successfully');
+}
+
 
     /**
      * Remove the specified resource from storage.
@@ -130,4 +147,5 @@ class DoctorController extends Controller
     {
         //
     }
+
 }
