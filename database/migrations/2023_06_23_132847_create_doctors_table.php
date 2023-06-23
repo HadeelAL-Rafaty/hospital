@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('speacality');
             $table->date('date_of_birth');
             $table->string('gender')->comment('M = Male , F = Female');
             $table->text('address');
@@ -27,6 +26,8 @@ return new class extends Migration
             $table->string('avatar');
             $table->text('biography');
             $table->tinyInteger('status')->default(0);
+            $table->unsignedBigInteger('department_id');
+            $table->foreign('department_id')->references('id')->on('departmentes')->onDelete('cascade');
             $table->timestamps();
         });
     }

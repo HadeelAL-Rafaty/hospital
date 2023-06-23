@@ -58,13 +58,12 @@
                                </div>
                                <div class="col-sm-6">
                                <div class="form-group ">
-                                   <label>Speacality</label>
-                                   <select class="form-control bg-white" name="speacality"  class="custom-select">
+                                   <label>Department</label>
+                                   <select class="form-control bg-white" name="department_id"  class="custom-select">
                                        <option selected>--Select--</option>
-                                       <option>Skin</option>
-                                       <option>Cardiology</option>
-                                       <option>Kidney</option>
-                                       <option>Medicine</option>
+                                       @foreach ($department as $department)
+                                           <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                       @endforeach
                                    </select>
                                    <span class="text-danger"> </span>
 

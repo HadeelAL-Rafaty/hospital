@@ -12,12 +12,12 @@ class Doctor extends Model
     protected $table = 'doctors';
 
     protected $fillable = [
+        'department_id',
         'firstname',
         'lastname',
         'date_of_birth',
         'email',
         'password',
-        'speacality',
         'gender',
         'address',
         'phone',
@@ -27,6 +27,14 @@ class Doctor extends Model
 
 
     ];
+
+    public function department(){
+        return $this->belongsTo(Department::class,'department_id','id');
+    }
+
+    public function transactions(){
+        return $this->hasMany(Transaction::class,'id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

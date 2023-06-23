@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
+use App\Models\Department;
 use App\Models\Doctor;
 
 
@@ -29,7 +30,8 @@ class DoctorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        return view('admin.doctor.create');
+        $department=Department::all();
+        return view('admin.doctor.create',compact('department'));
 
     }
 
@@ -46,7 +48,7 @@ class DoctorController extends Controller
         $date_of_birth = $request->input('date_of_birth');
         $email = $request->input('email');
         $password = $request->input('password');
-        $speacality = $request->input('speacality');
+        $department_id = $request->input('department_id');
         $gender = $request->input('gender');
         $address = $request->input('address');
         $phone= $request->input('phone');
@@ -63,7 +65,7 @@ class DoctorController extends Controller
         $doctor->date_of_birth = $date_of_birth;
         $doctor->email = $email;
         $doctor->password = $password;
-        $doctor->speacality = $speacality;
+        $doctor->department_id = $department_id;
         $doctor->gender = $gender;
         $doctor->phone = $phone;
         $doctor->biography = $biography;
