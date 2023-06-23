@@ -9,7 +9,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Doctor extends Model
 {
-    protected $table = 'doctor';
+    protected $table = 'doctors';
 
     protected $fillable = [
         'firstname',

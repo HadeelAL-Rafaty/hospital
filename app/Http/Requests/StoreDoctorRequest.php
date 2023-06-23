@@ -13,7 +13,7 @@ class StoreDoctorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,16 +25,18 @@ class StoreDoctorRequest extends FormRequest
     {
         return [
 
-            'firstname'=> 'required|string',
-            'lastname'=> 'required|string',
-            'speacality'=> 'required|string',
+            'firstname'=> 'required|string|max:255',
+            'lastname'=> 'required|string|max:255',
+            'speacality'=> 'nullable',
             'phone'=> 'required|string|min:8|max:11',
+            'password' => 'required|min:8',
+            'email' => 'required|unique:doctors,email',
             'avatar'=> 'required|mimes:png,jpg,jpeg',
-            'biography'=> 'required|text',
-            'status'=> 'required|string',
-            'gender'=> 'required|string',
-            'address'=>'required|text',
-            'date_of_birth'=> 'required|date|before_or_equal:today',
+            'biography'=> 'required|string',
+            'gender'=> 'nullable',
+            'status'=> 'required|integer|in:0,1',
+            'address'=>'required|string',
+            'date_of_birth'=> 'required|date|before:today',
         ];
     }
 }

@@ -38,8 +38,8 @@
                                <div class="col-sm-6">
                                    <div class="form-group">
                                        <label>Last Name</label>
-                                       <input class="form-control" type="text" id="lastname" name="lastname
-                                       .">
+                                       <input class="form-control" type="text" id="lastname" name="lastname">
+                                       <span class="text-danger"> </span>
                                    </div>
                                </div>
 
@@ -75,7 +75,7 @@
                                    <div class="form-group">
                                        <label>Date of Birth</label>
                                        <div class="cal-icon">
-                                           <input type="text" class="form-control datetimepicker" id="date_of_birth" name="date_of_birth">
+                                           <input type="date" class="form-control datetimepicker" id="date_of_birth" name="date_of_birth">
                                        </div>
                                    </div>
                                </div>
@@ -84,12 +84,12 @@
                                        <label class="gen-label">Gender:</label>
                                        <div class="form-check-inline">
                                            <label class="form-check-label">
-                                               <input type="radio" name="gender" class="form-check-input">Male
+                                               <input type="radio" name="gender" class="form-check-input" value="M">Male
                                            </label>
                                        </div>
                                        <div class="form-check-inline">
                                            <label class="form-check-label">
-                                               <input type="radio" name="gender" class="form-check-input">Female
+                                               <input type="radio" name="gender" class="form-check-input" value="F">Female
                                            </label>
                                        </div>
                                    </div>
@@ -137,13 +137,13 @@
                            <div class="form-group">
                                <label class="display-block">Status</label>
                                <div class="form-check form-check-inline">
-                                   <input class="form-check-input" type="radio" name="status" id="doctor_active" value="option1" checked>
+                                   <input class="form-check-input" type="radio" name="status" id="doctor_active" value="1" checked>
                                    <label class="form-check-label" for="doctor_active">
                                        Active
                                    </label>
                                </div>
                                <div class="form-check form-check-inline">
-                                   <input class="form-check-input" type="radio" name="status" id="doctor_inactive" value="option2">
+                                   <input class="form-check-input" type="radio" name="status" id="doctor_inactive" value="0">
                                    <label class="form-check-label" for="doctor_inactive">
                                        Inactive
                                    </label>
@@ -154,11 +154,12 @@
                            <div class="m-t-20 text-center">
                                <button class="btn btn-primary submit-btn">Create Doctor</button>
                            </div>
+                           </div>
                        </form>
                    </div>
                </div>
-           </div>
-
+                   </div>
                </div>
+
 
 @stop

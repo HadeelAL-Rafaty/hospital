@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Models\Doctor;
-use App\Models\Store;
+
+
 
 class DoctorController extends Controller
 {
@@ -17,9 +18,9 @@ class DoctorController extends Controller
      */
     public function index()
     {
-       // $doctor=Doctor::all();
+        $doctor=Doctor::all();
 
-        return view('admin.doctor.home');
+        return view('admin.doctor.home')->with('doctor',$doctor);
     }
 
     /**

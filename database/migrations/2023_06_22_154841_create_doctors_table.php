@@ -23,11 +23,10 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('gender')->comment('M = Male , F = Female');
             $table->text('address');
-            $table->num('phone');
+            $table->string('phone');
             $table->string('avatar');
             $table->text('biography');
             $table->tinyInteger('status')->default(0);
-            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
     }
