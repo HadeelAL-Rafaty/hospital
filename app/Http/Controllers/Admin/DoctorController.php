@@ -94,7 +94,9 @@ class DoctorController extends Controller
      */
     public function show(Doctor $doctor)
     {
-        //
+        $doctor=Doctor::all();
+
+        return view('admin.doctor.profile')->with('doctor',$doctor);
     }
 
     /**
