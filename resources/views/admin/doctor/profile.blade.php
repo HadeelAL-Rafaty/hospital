@@ -9,11 +9,12 @@
                    </div>
 
                    <div class="col-sm-5 col-6 text-right m-b-30">
-                       <a href="edit-profile.html" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Edit Profile</a>
+                       <a href="{{ URL('admin/doctor/edit/'.$doctor->id) }}" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Edit Profile</a>
+
                    </div>
+
                </div>
                <div class="card-box profile-header">
-                   @foreach ($doctor as $doctor)
                    <div class="row">
                        <div class="col-md-12">
                            <div class="profile-view">
@@ -59,7 +60,6 @@
                            </div>
                        </div>
                    </div>
-                   @endforeach
                </div>
 
 

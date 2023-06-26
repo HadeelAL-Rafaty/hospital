@@ -82,8 +82,8 @@ class DoctorController extends Controller
         $doctor->avatar = $filename;
         $doctor->save();
         // dd($request);
-
-        return redirect('admin/doctor')->with('massage', 'Doctor Add Successfully');
+        $request->session()->flash('success', 'Doctor Add Successfully.');
+        return redirect('admin/doctor');
     }
 
     /**
@@ -92,11 +92,11 @@ class DoctorController extends Controller
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function show(Doctor $doctor)
+    public function show($id)
     {
-        $doctor=Doctor::all();
+        $doctor=Doctor::findOrFail($id);
 
-        return view('admin.doctor.profile')->with('doctor',$doctor);
+        return view('admin.doctor.profile' , compact('doctor'));
     }
 
     /**
@@ -105,9 +105,11 @@ class DoctorController extends Controller
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Doctor $doctor)
+    public function edit($id)
     {
-        return view('admin.doctor.edit' , compact('doctor'));
+        $department=Department::all();
+        $doctor=Doctor::findOrFail($id);
+        return view('admin.doctor.edit' , compact('doctor','department'));
     }
 
     /**
@@ -117,25 +119,49 @@ class DoctorController extends Controller
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDoctorRequest $request,  $doctor)
+    public function update(UpdateDoctorRequest $request ,$doctor_id)
     {
-        $validatedData = $request->validated();
 
-        $doctor = Doctor::findOrFail($doctor);
 
-        $doctor->name = $validatedData['name'];
-        $doctor->phone = $validatedData['phone'];
-        $doctor->email = $validatedData['email'];
+        $firstname= $request->input('firstname');
+        $lastname = $request->input('lastname');
+        $date_of_birth = $request->input('date_of_birth');
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $gender = $request->input('gender');
+        $address = $request->input('address');
+        $phone= $request->input('phone');
+        $avatar= $request->input('avatar');
+        $biography= $request->input('biography');
+        $status= $request->input('status');
+        $department_id = $request->input('department_id');
 
-        $doctor->date_of_birth = $validatedData['date_of_birth'];
-       
-        $doctor->address = $validatedData['address'];
-        $doctor->gender = $validatedData['gender'];
 
-       
+        $doctor=Doctor::find($doctor_id);
+        $doctor->firstname = $firstname;
+        $doctor->lastname = $lastname;
+        $doctor->department_id = $department_id;
+        $doctor->date_of_birth = $date_of_birth;
+        $doctor->email = $email;
+        $doctor->password = $password;
+        $doctor->gender = $gender;
+        $doctor->phone = $phone;
+        $doctor->biography = $biography;
+        $doctor->status = $status;
+        $doctor->address = $address;
+        if($request->hasFile('avatar')){
+            $file=$request->file('avatar');
+            $ext=$file->getClientOriginalExtension();
+            $filename=time().'.'.$ext;
+            $file->move('auploads/doctor/',$filename);
+            $request->avatar =$filename;
+            $doctor->avatar = $filename;
+
+        }
     $doctor->update();
-
-    return redirect('admin/doctor')->with('message' , 'Doctor Updated Successfully');
+       // dd($request);
+        $request->session()->flash('success', 'Doctor Updated Successfully.');
+    return redirect('admin/doctor');
 }
 
 
