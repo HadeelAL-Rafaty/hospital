@@ -147,7 +147,10 @@ class DoctorController extends Controller
      */
     public function destroy(Doctor $doctor)
     {
-        //
+        $doctor = Doctor::find($doctor);
+        $doctor->delete();
+        return redirect('admin/doctor')->with('message' , 'Doctor Delete Successfully');
+
     }
 
 }

@@ -18,7 +18,7 @@
          @endif
          </div>
 
-            <form action="{{ url('admin/doctor/'. $doctor->id) }}" method="POST" >
+            <form action="{{ url('../admin/update-doctor/'. $doctor->id) }}" method="POST" >
                 @csrf
                 @method('PUT')
 
