@@ -1,9 +1,18 @@
 @extends('layouts.admin.admin_layout')
 
    @section('admin')
+
        <div class="page-wrapper">
+
            <div class="content">
                <div class="row">
+                   @if(session('success'))
+                       <div class="col-md-12">
+                           <div class="alert alert-success" role="alert">
+                               {{ session('success') }}
+                           </div>
+                       </div>
+                   @endif
                    <div class="col-sm-4 col-3">
                        <h4 class="page-title">Doctors</h4>
                    </div>
@@ -18,18 +27,13 @@
 
                        <div class="profile-widget">
                            <div class="doctor-img">
-                               <a class="avatar" href="{{ URL('admin/doctor/profile') }}"><img alt="" src="{{ asset('auploads/doctor/'.$doctor->avatar) }} "></a>
+                               <a class="avatar" href="{{ URL('admin/doctor/profile/'.$doctor->id) }}"><img alt="" src="{{ asset('auploads/doctor/'.$doctor->avatar) }} "></a>
                            </div>
                            <div class="dropdown profile-action">
                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                <div class="dropdown-menu dropdown-menu-right">
-                                   <a class="dropdown-item" href="{{ URL('admin/doctor/'.$doctor->id) }}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                   <form action="{{ URL('admin/delete-doctor/'.$doctor->id)  }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <a class="dropdown-item" data-toggle="modal" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                </form> 
-                                   {{-- <a class="dropdown-item" href="{{ URL('admin/delete-doctor/'.$doctor->id)}}" data-toggle="modal" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</a> --}}
+                                   <a class="dropdown-item" href="{{ URL('../admin/doctor/update'.$doctor->id) }}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                </div>
                            </div>
                            <h4 class="doctor-name text-ellipsis"><a href="{{URL('admin/doctor/profile')}}">{{ $doctor->firstname }} {{ $doctor->lastname }}</a></h4>

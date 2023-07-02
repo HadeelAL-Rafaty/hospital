@@ -1,24 +1,27 @@
 @extends('layouts.admin.admin_layout')
 
    @section('admin')
-   <div class="row">
-    <div class="col-md-12">
-        <div class="card">
-        <div class="card-header">
-            <h3> Edit Doctor
-                <a href="{{ url('admin/doctor') }}" class="btn btn-primary  float-end">BACK</a>
-            </h3>
-        </div>
-        <div class="card-body">
-            @if ($errors->any())
-        <div class="alert alert-danger">
-         @foreach ($errors->all() as $error)
-        <div>{{$error}}</div>
-        @endforeach
-         @endif
-         </div>
 
-            <form action="{{ url('../admin/update-doctor/'. $doctor->id) }}" method="POST" >
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <h4 class="page-title">Edit Doctor</h4>
+                <a href="{{URL('admin/doctor')}}" class="btn btn-primary btn-rounded float-right"><i class="fa fa-backward"></i> Back</a>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <div>{{$error}}</div>
+                        @endforeach
+                        @endif
+                    </div>
+
+            <form action="{{ url('admin/doctor/'. $doctor->id) }}" method="POST" >
                 @csrf
                 @method('PUT')
 
@@ -75,10 +78,7 @@
             </form>
 
         </div>
-        </div>
+    </div>
 
 </div>
-</div>
-
-
    @stop

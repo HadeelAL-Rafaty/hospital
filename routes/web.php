@@ -61,10 +61,10 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group (function() {
     //Doctor Route
     Route::get('doctor',[App\Http\Controllers\Admin\DoctorController::class,'index']);
     Route::get('doctor/create',[App\Http\Controllers\Admin\DoctorController::class,'create']);
+    Route::get('doctor/profile/{id}',[App\Http\Controllers\Admin\DoctorController::class,'show']);
     Route::post('doctor',[App\Http\Controllers\Admin\DoctorController::class,'store']);
     Route::get('/doctor/{doctor_id}', [App\Http\Controllers\Admin\DoctorController::class, 'edit']);
-    Route::put('update-doctor/{doctor_id}', [App\Http\Controllers\Admin\DoctorController::class, 'update']);
-    Route::delete('delete-doctor/{doctor_id}', [App\Http\Controllers\Admin\DoctorController::class, 'destroy']); 
+    Route::put('/doctor/update/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'update']);
 
 
    //Department Route

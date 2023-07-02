@@ -11,7 +11,7 @@
                    </div>
                </div>
                <div class="row">
-                   <div class="col-lg-8 offset-lg-2">
+                   <div class="col-lg-9 offset-lg-2">
                        <form class="form" action="{{URL ('admin/doctor')}}" method="post"
                              enctype="multipart/form-data">
                            @csrf
@@ -119,7 +119,6 @@
                                        <label>Avatar</label>
                                        <div class="profile-upload">
                                            <div class="upload-img">
-                                               <img alt="" src="">
                                                <span class="text-danger"> </span>
                                            </div>
                                            <div class="upload-input">
