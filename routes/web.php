@@ -67,8 +67,8 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::get('doctor/create',[App\Http\Controllers\Admin\DoctorController::class,'create']);
     Route::get('doctor/profile/{id}',[App\Http\Controllers\Admin\DoctorController::class,'show']);
     Route::post('doctor',[App\Http\Controllers\Admin\DoctorController::class,'store']);
-    Route::get('doctor/edit/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'edit']);
-    Route::put('doctor/update/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'update'])->name('doctors.update');
+    Route::get('/doctor/{doctor_id}', [App\Http\Controllers\Admin\DoctorController::class, 'edit']);
+    Route::put('/doctor/update/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'update']);
 
 
    //Department Route

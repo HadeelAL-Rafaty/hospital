@@ -21,156 +21,62 @@
                         @endif
                     </div>
 
-                    <form  method="POST" action="{{route('doctors.update',$doctor->id)}}"  enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>First Name <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" name="firstname" value="{{ $doctor->firstname }}">
-                                @error('firstname')
-                                <small class="text-danger"> {{ $message }} </small>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input class="form-control" type="text" name="lastname" value="{{ $doctor->lastname }}">
-                                @error('lastname')
-                                <small class="text-danger"> {{ $message }} </small>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Email <span class="text-danger">*</span></label>
-                                <input class="form-control" type="email" name="email" value="{{ $doctor->email }}">
-                                @error('email')
-                                <small class="text-danger"> {{ $message }} </small>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input class="form-control" type="password" name="password" value="{{ $doctor->password }}">
-                                @error('password')
-                                <small class="text-danger"> {{ $message }} </small>
-                                @enderror
-                            </div>
-                        </div>
-                            <div class="col-sm-6">
-                                <div class="form-group ">
-                                    <label>Department</label>
-                                    <select class="form-control bg-white" name="department_id"  class="custom-select">
-                                        <option selected>--Select--</option>
-                                        @foreach ($department as $department)
-                                            <option value="{{ $department->id }}" {{ $department->id==$doctor->department_id ?'selected': '' }}>
-                                                {{ $department->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('department_id')
-                                    <small class="text-danger"> {{ $message }} </small>
-                                    @enderror
-                                    <span class="text-danger"> </span>
+            <form action="{{ url('admin/doctor/'. $doctor->id) }}" method="POST" >
+                @csrf
+                @method('PUT')
 
-                                </div>
-                            </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Date of Birth</label>
-                                <div class="cal-icon">
-                                    <input type="text" class="form-control datetimepicker" name="date_of_birth" value="{{ $doctor->date_of_birth }}">
-                                    @error('date_of_birth')
-                                    <small class="text-danger"> {{ $message }} </small>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group gender-select">
-                                <label class="gen-label">Gender:</label>
-                                <div class="form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" name="gender" class="form-check-input" value="M" {{ $doctor->gender == 'M' ? 'checked' : '' }}>Male
+                <div class=" mb-3">
+                    <label for="">Name</label>
+                    <input type="text" name="Name" value="{{ $doctor->name }}" class="form control" />
+                    @error('name')
+                    <small class="text-danger"> {{ $message }} </small>
+                    @enderror
+                </div>
+                <div class=" mb-3">
 
-                                    </label>
-                                </div>
-                                <div class="form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" name="gender" class="form-check-input" value="F"{{ $doctor->gender == 'F' ? 'checked' : '' }}>Female
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <input type="text" class="form-control " name="address"  value="{{ $doctor->address }}">
-                                        @error('address')
-                                        <small class="text-danger"> {{ $message }} </small>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Phone </label>
-                                <input class="form-control" type="text" name="phone"  value="{{ $doctor->phone }}">
-                                @error('address')
-                                <small class="text-danger"> {{ $message }} </small>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Your avatar:</label>
-                                <div class="profile-upload">
-                                    <div class="upload-img">
-                                        <img src="{{ asset('auploads/doctor/'.$doctor->avatar) }} " width="70px" height="70px" alt="image">
-                                    </div>
-                                    <div class="upload-input">
-                                        <input type="file" class="form-control" name="avatar">
-                                        @error('avatar')
-                                        <small class="text-danger"> {{ $message }} </small>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Short Biography</label>
-                        <textarea class="form-control" rows="3" cols="30"  name="biography">{{ $doctor->biography }}</textarea>
-                        @error('biography')
-                        <small class="text-danger"> {{ $message }} </small>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label class="display-block">Status</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="doctor_active" value="1" {{ $doctor->status == '1' ? 'checked' : '' }}>
-                            <label class="form-check-label" for="doctor_active">
-                                Active
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="doctor_inactive" value="0" {{ $doctor->status == '0' ? 'checked' : '' }}>
-                            <label class="form-check-label" for="doctor_inactive">
-                                Inactive
-                            </label>
-                        </div>
-                    </div>
-                    <div class="m-t-20 text-center">
-                        <button class="btn btn-primary submit-btn">Update</button>
-                    </div>
-                </form>
-            </div>
+                    <label>Phone</label>
+                    <input type="text" name="Phone" value="{{ $doctor->phone }}" class="form control" />
+                    @error('phone')
+                    <small class="text-danger"> {{ $message }} </small>
+                    @enderror
+                </div>
+                <div class=" mb-3">
+                    <label>Email</label>
+                    <input type="text" name="email" value="{{ $doctor->email }}" class="form control" />
+                    @error('email')
+                    <small class="text-danger"> {{ $message }} </small>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label>Birthday</label>
+                    <input type="text" name="Birthday" value="{{ $doctor->date_of_birth }}" class="form control" />
+                    @error('date_of_birth')
+                    <small class="text-danger"> {{ $message }} </small>
+                    @enderror
+                </div>
+                <div class=" mb-3">
+                    <label>Address</label>
+                    <input type="text" name="Address" value="{{ $doctor->address }}" class="form control" />
+                    @error('address')
+                    <small class="text-danger"> {{ $message }} </small>
+                    @enderror
+                </div>
+                <div class=" mb-3">
+                    <label>Gender</label>
+                    <input type="text" name="Gender" value="{{ $doctor->gender }}" class="form control" />
+                    @error('gender')
+                    <small class="text-danger"> {{ $message }} </small>
+                    @enderror
+                </div>
+                
+                
+                <div class="mb-3">
+                <button type="submit" class="btn btn-primary float-end">Update</button>
+                </div>
+                </div>
+
+            </form>
+
         </div>
     </div>
 
