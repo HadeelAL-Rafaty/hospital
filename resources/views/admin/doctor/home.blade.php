@@ -36,7 +36,7 @@
                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                </div>
                            </div>
-                           <h4 class="doctor-name text-ellipsis"><a href="{{URL('admin/doctor/profile')}}">{{ $doctor->firstname }} {{ $doctor->lastname }}</a></h4>
+                           <h4 class="doctor-name text-ellipsis"><a href="{{URL('admin/doctor/profile/'.$doctor->id)}}">{{ $doctor->firstname }} {{ $doctor->lastname }}</a></h4>
                            <div class="doc-prof">{{ $doctor->department->name }} </div>
                            <div class="user-country">
                                <i class="fa fa-map-marker"></i> {{ $doctor->address }}

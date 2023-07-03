@@ -30,7 +30,7 @@ class DoctorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        $department=Department::all();
+        $department = Department::where('status', 'active')->get();
         return view('admin.doctor.create',compact('department'));
 
     }

@@ -1,8 +1,8 @@
-@extends('layouts.main_layout')
+@extends('layouts.patient.patients_layout')
 
-   @section('Home')
+   @section('homes')
 
-  <div class="page-hero bg-image overlay-dark" style="background-image: url('images/bg_image_1.jpg');">
+  <div class="page-hero bg-image overlay-dark" style="background-image: url{{asset ('images/bg_image_1.jpg')}};">
     <div class="hero-section">
         <div class="card-body">
             @if (session('error'))

@@ -30,15 +30,16 @@ class LoginController extends Controller
      */
     protected  function authenticated(Request $request, $user)
     {
-        if(Auth::user()->role_as=='1'){
-            return redirect('admin/dashboard')->with('message','Welcome to Dashboard');
 
+            if ($user->role === 'admin') {
+                return redirect('/admin/dashboard');
+            } elseif ($user->role === 'doctor') {
+                return redirect('/doctor/home1');
+            } elseif ($user->role === 'patient') {
+                return redirect('/patient/home');
+            }
+        }
 
-        }
-        else{
-            return redirect('admin/dashboard')->with('status','Logged In Successfully');
-        }
-    }
     /**
      * Create a new controller instance.
      *

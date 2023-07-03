@@ -33,9 +33,9 @@ Route::get('doctors', function () {
     return view('doctors');
 });
 
-Route::get('index', function () {
+Route::get('/index', function () {
     return view('index');
-});
+})->name('index');
 
 Route::get('loginpage', function () {
     return view('loginpage');
@@ -44,17 +44,21 @@ Route::get('loginpage', function () {
 Route::get('signup', function () {
     return view('signup');
 });
+
+
+
 Auth::routes();
+Route::get('doctor/home1', [App\Http\Controllers\HomeController::class, 'index2'])->name('home1');
+Route::prefix('doctor')->middleware(['auth','doctor'])->group (function() {});
+
+Route::get('patient/home', [App\Http\Controllers\HomeController::class, 'index1'])->name('home');
+Route::prefix('patient')->middleware(['auth','patient'])->group (function() {});
 
 
+Route::get('admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
+    //Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
-
-
-
-
-Route::get('admin/dashboard', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::prefix('admin')->middleware(['auth','isAdmin'])->group (function() {
-    Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
 
 
@@ -76,3 +80,6 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group (function() {
 
 
 });
+
+
+

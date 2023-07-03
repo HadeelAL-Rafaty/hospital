@@ -73,6 +73,20 @@
         </div>
     </div>
     <div class="text-center">
+        @if (Auth::check())
+            @if (Auth::user()->role === 'admin')
+                <a href="index" class="btn btn-secondary btn-sm">
+                    <i class="mai-home-outline"></i> Back to Admin Dashboard</a>
+            @elseif (Auth::user()->role === 'doctor')
+                <a href="home1" class="btn btn-secondary btn-sm">
+                    <i class="mai-home-outline"></i> Back to Doctor Dashboard</a>
+            @elseif (Auth::user()->role === 'patient')
+                <a href="home" class="btn btn-secondary btn-sm">
+                    <i class="mai-home-outline"></i> Back to Patient Dashboard</a>
+            @endif
+        @endif
+    </div>
+    <div class="text-center">
         <a href="{{ ('index') }}" class="btn btn-secondary btn-sm">
             <i class="mai-home-outline"></i> Back to dashboard </a>
     </div>

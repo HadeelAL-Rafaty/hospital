@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class DoctorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,13 +17,13 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // قم بتنفيذ التحقق هنا للتأكد من صلاحية المستخدم كـ "مدير النظام" أو "مشرف"
-        if ($request->user() && ($request->user()->role == 'admin' )) {
-            // إذا تم التحقق بنجاح، قم بالسماح بالوصول إلى المسارات المحمية للمدير أو المشرف
+        // قم بتنفيذ التحقق هنا للتأكد من صلاحية المستخدم كـ "دكتور"
+        if ($request->user() && $request->user()->role == 'doctor') {
+            // إذا تم التحقق بنجاح، قم بالسماح بالوصول إلى المسارات المحمية للدكتور
             return $next($request);
         }
 
         // إذا لم يتم التحقق، قم بتوجيه المستخدم إلى المسار المناسب مثل صفحة تسجيل الدخول
-        return redirect('/login')->with('error', 'يجب عليك تسجيل الدخول كـ مدير النظام أو مشرف للوصول إلى هذه الصفحة.');
+        return redirect('/login')->with('error', 'يجب عليك تسجيل الدخول كـ دكتور للوصول إلى هذه الصفحة.');
     }
 }
