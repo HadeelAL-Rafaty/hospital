@@ -36,7 +36,7 @@ class StoreDoctorRequest extends FormRequest
             'gender'=> 'nullable',
             'status'=> 'required|integer|in:0,1',
             'address'=>'required|string',
-            'date_of_birth'=> 'required|date|before:today',
+            'date_of_birth'=> 'required|before:today',
         ];
     }
 }

@@ -67,8 +67,8 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::get('doctor/create',[App\Http\Controllers\Admin\DoctorController::class,'create']);
     Route::get('doctor/profile/{id}',[App\Http\Controllers\Admin\DoctorController::class,'show']);
     Route::post('doctor',[App\Http\Controllers\Admin\DoctorController::class,'store']);
-    Route::get('/doctor/{doctor_id}', [App\Http\Controllers\Admin\DoctorController::class, 'edit']);
-    Route::put('/doctor/update/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'update']);
+    Route::get('doctor/edit/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'edit']);
+    Route::put('doctor/update/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'update'])->name('doctors.update');
 
 
    //Department Route
@@ -77,6 +77,13 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::get('department/create',[App\Http\Controllers\Admin\DepartmentController::class,'create']);
     Route::post('department',[App\Http\Controllers\Admin\DepartmentController::class,'store']);
 
+
+// Schedule Route
+    Route::get('schedule',[App\Http\Controllers\Admin\ScheduleController::class,'index']);
+    Route::get('schedule/create',[App\Http\Controllers\Admin\ScheduleController::class,'create']);
+    Route::post('schedule',[App\Http\Controllers\Admin\ScheduleController::class,'store']);
+    Route::get('schedule/edit/{id}', [App\Http\Controllers\Admin\ScheduleController::class, 'edit']);
+    Route::put('schedule/update/{id}', [App\Http\Controllers\Admin\ScheduleController::class, 'update'])->name('schedule.update');
 
 
 });

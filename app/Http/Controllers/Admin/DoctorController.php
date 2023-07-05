@@ -95,8 +95,8 @@ class DoctorController extends Controller
     public function show($id)
     {
         $doctor=Doctor::findOrFail($id);
-
-        return view('admin.doctor.profile' , compact('doctor'));
+        $doctors = Doctor::where('status', '1')->get();
+        return view('admin.doctor.profile' , compact('doctor','doctors'));
     }
 
     /**
