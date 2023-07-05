@@ -7,6 +7,8 @@ use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Models\Department;
 use App\Models\Doctor;
+use Illuminate\Support\Facades\File;
+
 
 
 
@@ -171,12 +173,16 @@ class DoctorController extends Controller
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Doctor $doctor)
+    public function destroy(  $doctor)
     {
         $doctor = Doctor::find($doctor);
+        $path= 'uploads/doctor/'.$doctor->avatar;
+        if(File::exists($path)){
+            File::delete($path);
+    
+          }
         $doctor->delete();
-        return redirect('admin/doctor')->with('message' , 'Doctor Delete Successfully');
-
+        return redirect('admin/doctor')->with('success' , 'Doctor Delete Successfully');
     }
 
 }
