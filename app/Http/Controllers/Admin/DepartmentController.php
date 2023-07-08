@@ -73,7 +73,8 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+
+        return view('admin.department.edit' , compact('department'));
     }
 
     /**
@@ -83,19 +84,32 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDepartmentRequest $request, Department $department)
+    public function update(UpdateDepartmentRequest $request,  $department)
     {
-        //
-    }
+        $name= $request->input('name');
+        $status= $request->input('status');
+        $department_id = $request->input('department_id');
 
+        $department=Department::find($department);
+        $department->name = $name;
+        $department->department_id = $department_id;
+        $department->status = $status;
+
+
+        $department->update();
+        $request->session()->flash('success', 'Department Updated Successfully.');
+        return redirect('admin/department');
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function destroy( $department)
     {
-        //
+        $department = Department::find($department);
+        $department->delete();
+        return redirect('admin/department')->with('success' , 'Department Delete Successfully');
     }
 }

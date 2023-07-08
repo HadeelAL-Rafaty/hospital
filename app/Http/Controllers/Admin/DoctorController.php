@@ -173,7 +173,7 @@ class DoctorController extends Controller
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(  $doctor)
+    public function destroy( $doctor)
     {
         $doctor = Doctor::find($doctor);
         $path= 'uploads/doctor/'.$doctor->avatar;

@@ -77,6 +77,9 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::get('department',[App\Http\Controllers\Admin\DepartmentController::class,'index']);
     Route::get('department/create',[App\Http\Controllers\Admin\DepartmentController::class,'create']);
     Route::post('department',[App\Http\Controllers\Admin\DepartmentController::class,'store']);
+    Route::get('/department/{department_id}', [App\Http\Controllers\Admin\DepartmentController::class, 'edit']);
+    Route::put('/department/update/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'update'])->name('department.update');
+    Route::delete('/department/delete/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'destroy']);
 
 
 
