@@ -40,6 +40,11 @@ class Doctor extends Model
     {
         return $this->hasMany(Appointment::class, 'doctor_id', 'id');
     }
+ /*   public function schedule()
+    {
+        return $this->hasMany(Schedule::class, 'doctor_id', 'id');
+    }*/
+
     /**
      * The attributes that should be hidden for serialization.
      *
