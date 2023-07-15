@@ -19,3 +19,26 @@
         });
     });
 </script>
+<script>
+
+$(document).ready(function() {
+$('#patient-select').on('change', function() {
+var patientId = $(this).val();
+
+// إرسال طلب Ajax لجلب بريد المريض ورقم الهاتف بناءً على الـ patientId
+$.ajax({
+url: '/get-patient-data',
+type: 'GET',
+data: { patientId: patientId },
+success: function(response) {
+$('#patient-email').val(response.email);
+$('#patient-phone').val(response.phone);
+},
+error: function() {
+$('#patient-email').val('');
+$('#patient-phone').val('');
+}
+});
+});
+});
+</script>

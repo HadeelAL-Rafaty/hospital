@@ -24,8 +24,7 @@ class UpdateDoctorRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstname'=> 'required|string|max:255',
-            'lastname'=> 'required|string|max:255',
+            'name'=> 'required|string|max:255',
             'department'=> 'nullable',
             'phone'=> 'required|string|min:8|max:11',
             'password' => 'required|min:8',

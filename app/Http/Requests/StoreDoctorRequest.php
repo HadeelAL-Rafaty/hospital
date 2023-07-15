@@ -30,7 +30,7 @@ class StoreDoctorRequest extends FormRequest
             'department'=> 'nullable',
             'phone'=> 'required|string|min:8|max:11',
             'password' => 'required|min:8',
-            'email' => 'required|unique:doctors,email',
+            'email' => 'required|unique:users,email',
             'avatar'=> 'required|mimes:png,jpg,jpeg',
             'biography'=> 'required|string',
             'gender'=> 'nullable',

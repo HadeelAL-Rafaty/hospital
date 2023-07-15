@@ -7,11 +7,14 @@ use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\User;
+use App\Notifications\SendEmailNotification;
+use http\Env\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 
-
-
-
+use Notifications;
 class DoctorController extends Controller
 {
     /**
@@ -49,6 +52,7 @@ class DoctorController extends Controller
         $lastname = $request->input('lastname');
         $date_of_birth = $request->input('date_of_birth');
         $email = $request->input('email');
+        $user_id = $request->input('user_id');
         $password = $request->input('password');
         $department_id = $request->input('department_id');
         $gender = $request->input('gender');
@@ -58,15 +62,17 @@ class DoctorController extends Controller
         $biography= $request->input('biography');
         $status= $request->input('status');
 
+        $user =new User();
+        $user->name = $firstname." ". $lastname;
+        $user->email = $email;
+        $user->password = Hash::make($password);
+        $user->role = "doctor";
 
-
-
+        $user->save();
+$user_id=$user->id;
         $doctor =new Doctor();
-        $doctor->firstname = $firstname;
-        $doctor->lastname = $lastname;
+        $doctor->user_id = $user_id;
         $doctor->date_of_birth = $date_of_birth;
-        $doctor->email = $email;
-        $doctor->password = $password;
         $doctor->department_id = $department_id;
         $doctor->gender = $gender;
         $doctor->phone = $phone;
@@ -82,8 +88,8 @@ class DoctorController extends Controller
             $request->avatar =$auploadPath.$filename;
         }
         $doctor->avatar = $filename;
+
         $doctor->save();
-        // dd($request);
         $request->session()->flash('success', 'Doctor Add Successfully.');
         return redirect('admin/doctor');
     }
@@ -107,11 +113,12 @@ class DoctorController extends Controller
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,$user_id)
     {
         $department=Department::all();
         $doctor=Doctor::findOrFail($id);
-        return view('admin.doctor.edit' , compact('doctor','department'));
+        $user_id=User::findOrFail($user_id);
+        return view('admin.doctor.edit' , compact('doctor','department','user_id'));
     }
 
     /**
@@ -121,7 +128,7 @@ class DoctorController extends Controller
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDoctorRequest $request ,$doctor_id)
+    public function update(UpdateDoctorRequest $request,$user_id ,$id)
     {
 
 
@@ -139,13 +146,22 @@ class DoctorController extends Controller
         $department_id = $request->input('department_id');
 
 
-        $doctor=Doctor::find($doctor_id);
-        $doctor->firstname = $firstname;
-        $doctor->lastname = $lastname;
+
+
+        $user = User::where('email', $email)->first();
+
+        if ($user) {
+            $user->name = $firstname . " " . $lastname;
+            $user->password = Hash::make($password);
+            $user->role = "doctor";
+            $user->update();
+        }
+            $user_id = $user->id;
+
+        $doctor=Doctor::find($id);
+        $doctor->user_id = $user_id;
         $doctor->department_id = $department_id;
         $doctor->date_of_birth = $date_of_birth;
-        $doctor->email = $email;
-        $doctor->password = $password;
         $doctor->gender = $gender;
         $doctor->phone = $phone;
         $doctor->biography = $biography;
@@ -160,7 +176,9 @@ class DoctorController extends Controller
             $doctor->avatar = $filename;
 
         }
-    $doctor->update();
+      //  dd($request);
+
+        $doctor->update();
        // dd($request);
         $request->session()->flash('success', 'Doctor Updated Successfully.');
     return redirect('admin/doctor');
@@ -179,10 +197,28 @@ class DoctorController extends Controller
         $path= 'uploads/doctor/'.$doctor->avatar;
         if(File::exists($path)){
             File::delete($path);
-    
+
           }
         $doctor->delete();
         return redirect('admin/doctor')->with('success' , 'Doctor Delete Successfully');
     }
 
+
+public function emailview($id){
+    $doctor=Doctor::find($id);
+    return view('admin.doctor.email_view' ,compact('doctor'));
+}
+
+public  function sendemail(\Illuminate\Http\Request $request,$id){
+    $doctor=Doctor::find($id);
+    $details=[
+        'firstname' =>$request -> firstname,
+    'lastname' =>$request -> lastname,
+    'email' =>$request -> email,
+    'password' =>$request -> password,
+
+    ];
+    Notification::send($doctor,new SendEmailNotification($details));
+    return view('admin.doctor.profile' );
+}
 }

@@ -35,8 +35,8 @@
                                <tbody>
                                @foreach ($schedule as $schedule)
                                    <tr>
-                                   <td><img width="28" height="28" src="{{ asset('auploads/doctor/'.$schedule->doctor->avatar) }}" class="rounded-circle m-r-5" alt=""> {{ $schedule->doctor->firstname }} {{ $schedule->doctor->lastname }}</td>
-                                   <td>{{ $schedule->doctor->department->speacality }}</td>
+                                   <td><img width="28" height="28" src="{{ asset('auploads/doctor/'.$schedule->doctor->avatar) }}" class="rounded-circle m-r-5" alt=""> {{ $schedule->doctor->user->name }}</td>
+                                   <td>{{ $schedule->doctor->department->name }}</td>
                                    <td>{{ $schedule->available_days }}</td>
                                        <td>{{ $schedule->start_time }}-{{ $schedule->end_time }}</td>
                                    <td><span class="custom-badge status-green">{{ $schedule->status }}</span></td>

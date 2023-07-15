@@ -10,10 +10,10 @@
                     <a href="{{ URL('admin/doctor') }}"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
                 </li>
                 <li>
-                    <a href="patients.html"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
+                    <a href="{{ URL('admin/patient') }}"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
                 </li>
                 <li>
-                    <a href="appointments.html"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                    <a href="{{ URL('admin/appointment') }}"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
                 </li>
                 <li>
                     <a href="{{ URL('admin/schedule') }}"><i class="fa fa-calendar-check-o"></i> <span>Doctor Schedule</span></a>

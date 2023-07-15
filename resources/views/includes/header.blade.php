@@ -41,7 +41,7 @@
             <a class="nav-link" href="{{ ('doctors') }}">Doctors</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="{{ ('appointment') }}">Appointment</a>
+            <a class="nav-link" href="{{URL ('appointment') }}">Appointment</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ ('contact') }}">Contact</a>

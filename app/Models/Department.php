@@ -20,9 +20,9 @@ class Department extends Model
     {
         return $this->hasMany(Doctor::class,'department_id','id');
     }
-/*
-  /*  public function schedule()
+
+    public function appointment()
     {
-        return $this->hasMany(Schedule::class, 'department_id', 'id');
-    }*/
+        return $this->hasMany(Appointment::class, 'department_id', 'id');
+    }
 }

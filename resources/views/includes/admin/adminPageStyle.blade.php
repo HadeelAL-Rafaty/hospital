@@ -12,3 +12,8 @@
     <script src="{{('admin/assets/js/html5shiv.min.js')}}"></script>
     <script src="{{('admin/assets/js/respond.min.js')}}"></script>
     <![endif]-->--}}
+<style>
+    .button-group .btn {
+        margin: 0 10px; /* تحديد المسافة بين الأزرار على اليمين واليسار */
+    }
+</style>

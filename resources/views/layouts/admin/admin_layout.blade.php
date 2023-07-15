@@ -2,6 +2,7 @@
 <html lang="en">
 
 @include('includes.admin.adminPageStyle')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
 <head>

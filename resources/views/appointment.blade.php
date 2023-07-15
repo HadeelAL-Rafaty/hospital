@@ -1,5 +1,5 @@
 @extends('layouts.main_layout')
-  
+
    @section('appointment')
 
   <div class="page-banner overlay-dark bg-image" style="background-image: url('images/bg_image_1.jpg');">
@@ -20,39 +20,181 @@
     <div class="container">
       <h1 class="text-center wow fadeInUp">Make an Appointment</h1>
 
-      <form class="main-form">
         <div class="row mt-5 ">
           <div class="col-12 col-sm-6 py-2 wow fadeInLeft">
-            <input type="text" class="form-control" placeholder="Full name">
+            <input type="text" class="form-control" placeholder="Full name" name="fullname">
           </div>
           <div class="col-12 col-sm-6 py-2 wow fadeInRight">
-            <input type="text" class="form-control" placeholder="Email address..">
+            <input type="text" class="form-control" placeholder="ID Number.." name="idnumber">
           </div>
           <div class="col-12 col-sm-6 py-2 wow fadeInLeft" data-wow-delay="300ms">
-            <input type="text" class="form-control" placeholder="Number..">
+            <input type="text" class="form-control" placeholder="Phone Number.." name="phone">
           </div>
           <div class="col-12 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
-            <select name="Doctor" id="departement" class="custom-select">
-              <option>Doctor</option>
-                    <option>Dr. Najdat Saqer</option>
-                    <option>Dr. Eyad abu Maelq</option>
-                    <option>Dr. Mahmoudr Khraeis</option>
-                    <option>Dr. Naser Hamad</option>
-                    <option>Dr. Berta Khattab</option>
-                    <option>laboratory Al-Sa'aa</option>
-            </select>
+              <select class="select" name="doctor_id" id="doctor_id">
+                  <option>Select Doctor</option>
+                  @foreach ($doctors as $doctor)
+                      <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
+                  @endforeach
+              </select>
           </div>
-          
-          <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
-            <textarea name="message" id="message" class="form-control" rows="6" placeholder="Enter message.."></textarea>
+            <div class="col-12 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
+
+            <div class="cal-icon">
+                <input type="text" class="form-control datetimepicker" name="date"  id="datetime"  placeholder="Date">
+            </div>
+            </div>
+        </div>
+          <div class="col-lg-8 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
+
+          <label>Available Appointments</label>
+<br>
+              <div class="m-t-20 text-center">
+
+              <button id="availability_day" class="btn btn-primary mt-3 wow zoomIn"  onclick="getCode()" style=" width: 150%;">
+                  Availability Day
+              </button>
+              </div>
           </div>
+        <div  id="availability_results" class="mt-3" data-toggle="buttons" >
+
+
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3 wow zoomIn">Submit Request</button>
-      </form>
-    </div>
-  </div> <!-- .page-section -->
+       <div class="m-t-20 text-center">
 
-  
+       <button type="submit" class="btn btn-primary mt-3 wow zoomIn" onclick="getCode2()">Submit Request</button>
+       </div>
+
+    </div>
+
+   </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+
+
+
+
+
+
+
+      $(function () {
+          $('#datetime').datetimepicker({
+              format: 'YYYY-MM-DD' // تنسيق التاريخ المطلوب
+          });
+      });
+      function getCode(){
+
+          var doctor=document.getElementById('doctor_id').value;
+          var inputDate = $('#datetime').val();
+
+          // الحصول على التاريخ بالتنسيق المطلوب
+          var formattedDate = moment(inputDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
+         // alert(formattedDate);
+
+
+
+          var  url = "{{ route('getAvailableAppointment') }}";
+
+              $.ajax({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+              url: url,
+              type: "GET",
+              dataType: 'json',
+
+              data: {
+                  'doctor_id':  doctor , 'date':  formattedDate
+              },
+                  success: function (response) {
+                    //  console.log(response.data[0]); // طباعة قيمة المتغير response في وحدة تحكم المستعرض
+
+                      var availabilityResults = document.getElementById('availability_results');
+                      availabilityResults.innerHTML = '';
+                      if (response?.data?.length > 0) {
+                          var timeButtons = document.createElement('div'); // إنشاء عنصر div للأزرار
+                          timeButtons.className = 'button-group btn-group-toggle'; // تعيين الفئة المناسبة للعنصر
+
+                          response.data.forEach(function (time) {
+                              //console.log(time);
+                              var timeButton = document.createElement('label'); // إنشاء عنصر label لزر الموعد
+                              timeButton.className = 'btn btn-secondary'; // تعيين الفئة المناسبة للعنصر
+                              timeButton.textContent = time; // تعيين قيمة الموعد
+
+                              var timeInput = document.createElement('input'); // إنشاء عنصر input للاستخدام الداخلي
+                              timeInput.type = 'radio';
+                              timeInput.name = 'start_date_time';
+                              timeInput.id = 'option';
+                              timeInput.autocomplete = 'off';
+                              timeInput.value = time;
+                              timeButton.appendChild(timeInput); // إضافة عنصر input كابن لعنصر label
+                              timeButtons.appendChild(timeButton); // إضافة عنصر label كابن لعنصر div
+
+                          });
+
+                          availabilityResults.appendChild(timeButtons); // إضافة عنصر div كابن لعنصر النتائج
+                   // alert(availabilityResults)
+                      } else {
+                          var noAvailabilityMessage = document.createElement('p');
+                          noAvailabilityMessage.textContent = 'No availability found.';
+                          availabilityResults.appendChild(noAvailabilityMessage);
+
+                      }
+                  },
+                  error: function (error) {
+                      console.log(error);
+                  }
+          });}
+
+
+
+
+      function getCode2(){
+          var fullnames=document.getElementsByName('fullname')[0].value;
+          var idnumbers=document.getElementsByName('idnumber')[0].value;
+          var phones=document.getElementsByName('phone')[0].value;
+          var doctor=document.getElementsByName('doctor_id')[0].value;
+          var dates=document.getElementsByName('date')[0].value;
+          var start_date_times=$("input[type='radio'][name='start_date_time']:checked").val();
+          ;
+          //console.log(start_date_times);
+
+          var  url = "{{ route('GetAppointmentAdd') }}";
+          let mail = {
+              _token: "{{ csrf_token() }}",
+              name: 'Mister. ABC',
+              email: 'abc@gmail.com',
+              message: 'OK',
+          }
+          $.ajax({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              url: url,
+              type: "POST",
+              dataType: 'json',
+              data:mail,
+
+              data: {
+               'fullname' :fullnames, 'idnumber':idnumbers, 'doctor_id': doctor ,'phone':phones, 'date':dates ,'start_date_time' :start_date_times
+              },
+              success: function (response) {
+                  alert("success to appointment")
+                  }
+              ,
+              error: function (error) {
+                  console.log(error);
+              }
+          });}
+
+
+
+
+  </script>
 
 @stop
+

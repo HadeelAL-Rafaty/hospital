@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@include('includes.admin.adminPageStyle')
+@include('includes.doctor.doctorPageStyle')
 
 
 <head>
@@ -13,17 +13,17 @@
 {{--
        Header
 --}}
-    @include('includes.admin.adminHeader')
+    @include('includes.doctor.doctorHeader')
     {{-- end Header --}}
     {{-- Sidebar --}}
-    @include('includes.admin.adminSidebar')
+    @include('includes.doctor.doctorSidebar')
 
 {{-- end Sidebar --}}
 
     @yield('doctor')
 
 
-    @include('includes.admin.adminPageJS')
+    @include('includes.doctor.doctorPageJS')
 
 </body>
 </html>

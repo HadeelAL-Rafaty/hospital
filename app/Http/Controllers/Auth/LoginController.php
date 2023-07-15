@@ -35,8 +35,6 @@ class LoginController extends Controller
                 return redirect('/admin/dashboard');
             } elseif ($user->role === 'doctor') {
                 return redirect('/doctor/home1');
-            } elseif ($user->role === 'patient') {
-                return redirect('/patient/home');
             }
         }
 
@@ -49,4 +47,5 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
 }

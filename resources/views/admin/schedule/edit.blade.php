@@ -37,7 +37,7 @@
                                        <select class="select" name="doctor_id">
                                            <option>Select Doctor</option>
                                            @foreach ($doctor as $doctor)
-                                               <option value="{{ $doctor->id }}" {{ $doctor->id == $schedule->doctor_id ? 'selected' : '' }}>{{ $doctor->firstname }} {{ $doctor->lastname }}</option>
+                                               <option value="{{ $doctor->id }}" {{ $doctor->id == $schedule->doctor_id ? 'selected' : '' }}>{{ $doctor->user->name }}</option>
                                            @endforeach
                                        </select>
                                        <span class="text-danger"> </span>
@@ -46,15 +46,15 @@
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label>Available Days</label>
-                                       <select class="select" multiple name="available_days[]">
+                                       <select class="select"  name="available_days">
                                            <option>Select Days</option>
-                                           <option value="Sunday" {{ in_array('Sunday', $availableDays) ? 'selected' : '' }}>Sunday</option>
-                                           <option value="Monday" {{ in_array('Monday', $availableDays) ? 'selected' : '' }}>Monday</option>
-                                           <option value="Tuesday" {{ in_array('Tuesday', $availableDays) ? 'selected' : '' }}>Tuesday</option>
-                                           <option value="Wednesday" {{ in_array('Wednesday', $availableDays) ? 'selected' : '' }}>Wednesday</option>
-                                           <option value="Thursday" {{ in_array('Thursday', $availableDays) ? 'selected' : '' }}>Thursday</option>
-                                           <option value="Friday" {{ in_array('Friday', $availableDays) ? 'selected' : '' }}>Friday</option>
-                                           <option value="Saturday" {{ in_array('Saturday', $availableDays) ? 'selected' : '' }}>Saturday</option>
+                                           <option value="0" {{ $schedule->available_days == '0' ? 'selected' : '' }}>Sunday</option>
+                                           <option value="1" {{ $schedule->available_days == '1' ? 'selected' : '' }}>Monday</option>
+                                           <option value="2" {{ $schedule->available_days == '2' ? 'selected' : '' }}>Tuesday</option>
+                                           <option value="3" {{ $schedule->available_days == '3' ? 'selected' : '' }}>Wednesday</option>
+                                           <option value="4" {{ $schedule->available_days == '4' ? 'selected' : '' }}>Thursday</option>
+                                           <option value="5" {{ $schedule->available_days == '5' ? 'selected' : '' }}>Friday</option>
+                                           <option value="6" {{ $schedule->available_days == '6' ? 'selected' : '' }}>Saturday</option>
                                        </select>
                                        <span class="text-danger"> </span>
                                    </div>

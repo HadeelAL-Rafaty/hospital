@@ -13,7 +13,7 @@ class StoreAppointmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class StoreAppointmentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'patient_id' => 'required',
+            'doctor_id' => 'required',
+            'start_date_time' => 'required',
+
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'patient_id.required' => 'يرجى تحديد معرف المريض.',
+            'day.required' => 'يرجى تحديد اليوم.',
+            'time.required' => 'يرجى تحديد الوقت.',
+            'time.unique' => 'الوقت المحدد مكرر في المواعيد.',
         ];
     }
 }
