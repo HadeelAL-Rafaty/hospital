@@ -25,8 +25,8 @@ class StoreScheduleRequest extends FormRequest
     {
         return [
             'doctor_id' => 'required',
-            'available_days' => 'required',
-            'start_time' => 'required|unique:schedules,start_time,NULL,id,doctor_id,' . $this->input('doctor_id'),
+            'available_days' => 'required|unique:schedules,available_days,NULL,id,doctor_id,' . $this->input('doctor_id'),
+            'start_time' => 'required',
             'end_time' => 'required|after:start_time',
 
         ];

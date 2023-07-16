@@ -128,38 +128,38 @@ $user_id=$user->id;
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDoctorRequest $request,$user_id ,$id)
+    public function update(UpdateDoctorRequest $request, $user_id, $id)
     {
-
-
-        $firstname= $request->input('firstname');
-        $lastname = $request->input('lastname');
+        $name = $request->input('name');
         $date_of_birth = $request->input('date_of_birth');
         $email = $request->input('email');
         $password = $request->input('password');
         $gender = $request->input('gender');
         $address = $request->input('address');
-        $phone= $request->input('phone');
-        $avatar= $request->input('avatar');
-        $biography= $request->input('biography');
-        $status= $request->input('status');
+        $phone = $request->input('phone');
+        $avatar = $request->input('avatar');
+        $biography = $request->input('biography');
+        $status = $request->input('status');
         $department_id = $request->input('department_id');
 
-
-
-
+        // التحقق من وجود سجل موجود بنفس البريد الإلكتروني
         $user = User::where('email', $email)->first();
 
-        if ($user) {
-            $user->name = $firstname . " " . $lastname;
-            $user->password = Hash::make($password);
-            $user->role = "doctor";
-            $user->update();
+        if ($user && $user->id != $user_id) {
+            // يوجد سجل موجود بنفس البريد الإلكتروني
+            return back()->withErrors(['email' => 'This email is already in use.']);
         }
-            $user_id = $user->id;
 
-        $doctor=Doctor::find($id);
-        $doctor->user_id = $user_id;
+        // تحديث بيانات المستخدم
+        $user = User::findOrFail($user_id);
+        $user->name = $name;
+        $user->password = Hash::make($password);
+        $user->email = $email;
+        $user->role = "doctor";
+        $user->update();
+
+        // تحديث بيانات الطبيب
+        $doctor = Doctor::findOrFail($id);
         $doctor->department_id = $department_id;
         $doctor->date_of_birth = $date_of_birth;
         $doctor->gender = $gender;
@@ -167,22 +167,22 @@ $user_id=$user->id;
         $doctor->biography = $biography;
         $doctor->status = $status;
         $doctor->address = $address;
-        if($request->hasFile('avatar')){
-            $file=$request->file('avatar');
-            $ext=$file->getClientOriginalExtension();
-            $filename=time().'.'.$ext;
-            $file->move('auploads/doctor/',$filename);
-            $request->avatar =$filename;
-            $doctor->avatar = $filename;
 
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $ext;
+            $file->move('auploads/doctor/', $filename);
+            $doctor->avatar = $filename;
         }
-      //  dd($request);
 
         $doctor->update();
-       // dd($request);
+
         $request->session()->flash('success', 'Doctor Updated Successfully.');
-    return redirect('admin/doctor');
-}
+
+        return redirect('admin/doctor');
+    }
+
 
 
     /**

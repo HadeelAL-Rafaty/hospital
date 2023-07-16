@@ -59,6 +59,10 @@ Route::prefix('doctors')->middleware(['auth','doctor'])->group (function() {
     Route::get('doctor',[App\Http\Controllers\Doctor\DoctorController::class,'index']);
     // schedule
     Route::get('schedule',[App\Http\Controllers\Doctor\ScheduleController::class,'index']);
+    Route::get('schedule/create',[App\Http\Controllers\Doctor\ScheduleController::class,'create']);
+    Route::post('schedule',[App\Http\Controllers\Doctor\ScheduleController::class,'store']);
+    Route::get('schedule/edit/{id}', [App\Http\Controllers\Doctor\ScheduleController::class, 'edit']);
+    Route::put('schedule/update/{id}', [App\Http\Controllers\Doctor\ScheduleController::class, 'update'])->name('schedules.update');
 
 
 });

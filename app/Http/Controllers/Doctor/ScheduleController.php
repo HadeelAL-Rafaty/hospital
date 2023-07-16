@@ -32,9 +32,8 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        $doctor=Doctor::where('status', '1')->get();
-        return view('admin.schedule.create',compact('doctor'));
-        //dd($doctor);
+        $doctor = Auth::user()->doctor;
+        return view('doctors.schedule.create', compact('doctor'));
 
     }
 
@@ -53,18 +52,18 @@ class ScheduleController extends Controller
         $end_time= $request->input('end_time');
         $status= $request->input('status');
 
-/*        $available_days_string = implode(',', $available_days);*/
+        /*        $available_days_string = implode(',', $available_days);*/
 
         $schedule =new Schedule();
         $schedule->doctor_id = $doctor_id;
-        $schedule->available_days = implode(',', $request->input('available_days'));
+        $schedule->available_days = $available_days;
         $schedule->end_time = $end_time;
         $schedule->start_time = $start_time;
         $schedule->status = $status;
         $schedule->save();
-       //  dd($request);
+        //  dd($request);
         $request->session()->flash('success', 'Schedule Add Successfully.');
-        return redirect('admin/schedule');
+        return redirect('doctors/schedule');
     }
 
     /**
@@ -86,10 +85,10 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
-        $doctor=Doctor::all();
+        $doctor = Auth::user()->doctor;
         $schedule=Schedule::findOrFail($id);
         $availableDays = explode(',', $schedule->available_days);
-        return view('admin.schedule.edit' , compact('doctor','schedule','availableDays'));
+        return view('doctors.schedule.edit' , compact('doctor','schedule','availableDays'));
     }
 
     /**
@@ -110,14 +109,14 @@ class ScheduleController extends Controller
         /*        $available_days_string = implode(',', $available_days);*/
         $schedule=Schedule::find($schedule_id);
         $schedule->doctor_id = $doctor_id;
-        $schedule->available_days = implode(',', $request->input('available_days'));
+        $schedule->available_days = $available_days;
         $schedule->end_time = $end_time;
         $schedule->start_time = $start_time;
         $schedule->status = $status;
         $schedule->update();
         //  dd($request);
         $request->session()->flash('success', 'Schedule update Successfully.');
-        return redirect('admin/schedule');
+        return redirect('doctors/schedule');
     }
 
     /**

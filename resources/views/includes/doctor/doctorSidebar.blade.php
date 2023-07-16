@@ -10,7 +10,7 @@
                     <a href="{{ URL('doctors/doctor') }}"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
                 </li>
                 <li>
-                    <a href="patients.html"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
+                    <a href="{{ URL('doctors/patient') }}"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
                 </li>
                 <li>
                     <a href="appointments.html"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
@@ -19,7 +19,7 @@
                     <a href="{{ URL('doctors/schedule') }}"><i class="fa fa-calendar-check-o"></i> <span>Doctor Schedule</span></a>
                 </li>
                 <li>
-                    <a href="{{ URL('admin/department') }}"><i class="fa fa-hospital-o"></i> <span>Departments</span></a>
+                    <a href=""><i class="fa fa-hospital-o"></i> <span>Departments</span></a>
                 </li>
 
                 <li>

@@ -6,13 +6,13 @@
                <div class="row">
                    <div class="col-lg-8 offset-lg-2">
                        <h4 class="page-title">Add Schedule</h4>
-                       <a href="{{URL('admin/schedule')}}" class="btn btn-primary btn-rounded float-right"><i class="fa fa-backward"></i> Back</a>
+                       <a href="{{URL('doctors/schedule')}}" class="btn btn-primary btn-rounded float-right"><i class="fa fa-backward"></i> Back</a>
 
                    </div>
                </div>
                <div class="row">
                    <div class="col-lg-8 offset-lg-2">
-                       <form class="form" action="{{URL ('admin/schedule')}}" method="post"
+                       <form class="form" action="{{URL ('doctors/schedule')}}" method="post"
                              enctype="multipart/form-data">
                            @csrf
                            <div class="form-body">
@@ -33,10 +33,7 @@
                                    <div class="form-group">
                                        <label >Doctor Name</label>
                                        <select class="select" name="doctor_id">
-                                           <option>Select Doctor</option>
-                                       @foreach ($doctor as $doctor)
-                                               <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
-                                           @endforeach
+                                           <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
                                        </select>
                                        <span class="text-danger"> </span>
                                    </div>
@@ -44,15 +41,15 @@
                                <div class="col-md-6">
                                    <div class="form-group">
                                        <label>Available Days</label>
-                                       <select class="select" multiple name="available_days[]">
+                                       <select class="select"  name="available_days">
                                            <option>Select Days</option>
-                                           <option value="Sunday">Sunday</option>
-                                           <option value="Monday">Monday</option>
-                                           <option value="Tuesday">Tuesday</option>
-                                           <option value="Wednesday">Wednesday</option>
-                                           <option value="Thursday">Thursday</option>
-                                           <option value="Friday">Friday</option>
-                                           <option value="Saturday">Saturday</option>
+                                           <option value="0">Sunday</option>
+                                           <option value="1">Monday</option>
+                                           <option value="2">Tuesday</option>
+                                           <option value="3">Wednesday</option>
+                                           <option value="4">Thursday</option>
+                                           <option value="5">Friday</option>
+                                           <option value="6">Saturday</option>
                                        </select>
                                        <span class="text-danger"> </span>
                                    </div>

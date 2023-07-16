@@ -10,6 +10,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Schedule;
 use App\Models\Department;
+use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
 {
@@ -20,8 +21,16 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $patient = Patient::all();
-        return view('admin.patient.index', compact('patient'));
+        $doctor = Auth::user()->doctor;
+        $patients = $doctor->patients;
+
+        if ($patients !== null && $patients->count() > 0) {
+            return view('doctors.patient.index', compact('patients', 'doctor'));
+        } else {
+            // لا توجد بيانات مرضى أو $patients هو null
+            $message = 'لا توجد بيانات مرضى لهذا الطبيب.';
+            return view('doctors.patient.index', compact('message', 'patients'));
+        }
     }
 
     /**
