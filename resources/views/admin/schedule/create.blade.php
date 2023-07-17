@@ -35,7 +35,7 @@
                                        <select class="select" name="doctor_id">
                                            <option>Select Doctor</option>
                                        @foreach ($doctor as $doctor)
-                                               <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
+                                               <option value="{{ $doctor->id }}">{{ $doctor->user->name ?? '' }}</option>
                                            @endforeach
                                        </select>
                                        <span class="text-danger"> </span>

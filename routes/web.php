@@ -87,6 +87,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::put('doctor/update/{user_id}/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'update'])->name('doctors.update');
     Route::get('doctor/emailview/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'emailview']);
     Route::post('doctor/sendemail/{id}',[App\Http\Controllers\Admin\DoctorController::class,'sendemail']);
+    Route::delete('/doctor/delete/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'destroy']);
 
 
 
@@ -106,6 +107,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::post('schedule',[App\Http\Controllers\Admin\ScheduleController::class,'store']);
     Route::get('schedule/edit/{id}', [App\Http\Controllers\Admin\ScheduleController::class, 'edit']);
     Route::put('schedule/update/{id}', [App\Http\Controllers\Admin\ScheduleController::class, 'update'])->name('schedule.update');
+    Route::delete('/schedule/delete/{id}', [App\Http\Controllers\Admin\ScheduleController::class, 'destroy']);
 
 //patient Route
     Route::get('patient',[App\Http\Controllers\Admin\PatientController::class,'index']);
@@ -113,6 +115,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::post('patient',[App\Http\Controllers\Admin\PatientController::class,'store']);
     Route::get('patient/edit/{id}', [App\Http\Controllers\Admin\PatientController::class, 'edit']);
     Route::put('patient/update/{id}', [App\Http\Controllers\Admin\PatientController::class, 'update'])->name('patient.update');
+    Route::delete('/patient/delete/{id}', [App\Http\Controllers\Admin\PatientController::class, 'destroy']);
 
 
     //Appointments Route
@@ -123,6 +126,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::post('appointment',[App\Http\Controllers\Admin\AppointmentController::class,'store'])->name('GetAppointmentAddss');
     Route::get('appointment/edit/{id}', [App\Http\Controllers\Admin\AppointmentController::class, 'edit']);
     Route::put('appointment/update/{id}', [App\Http\Controllers\Admin\AppointmentController::class, 'update'])->name('appointment.update');
+    Route::delete('/appointment/delete/{id}', [App\Http\Controllers\Admin\AppointmentController::class, 'destroy']);
 
 });
 

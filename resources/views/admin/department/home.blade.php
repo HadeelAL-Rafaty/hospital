@@ -68,7 +68,7 @@
                    <div class="modal-body text-center">
                        <img src="assets/img/sent.png" alt="" width="50" height="46">
                        <h3>Are you sure want to delete this Department?</h3>
-                                 <form method="POST" action="{{url('admin/department/delete/'. $department->id)}}" >
+                                 <form method="POST" action="{{url('admin/department/delete/'.$department->id )}}" >
                                                     @csrf
                                                     @method('DELETE')
                                                     <div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
@@ -76,9 +76,9 @@
                                                     <button type="submit" class="btn btn-danger">Delete</button>
 
                                                 </form>
+                   
                        </div>
                    </div>
                </div>
            </div>
-       </div>
 @stop

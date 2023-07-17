@@ -127,10 +127,18 @@ class ScheduleController extends Controller
      * @param  \App\Models\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Schedule $schedule)
+    public function destroy($schedule)
     {
-        //
-    }
+        
+            $schedule = Schedule::find($schedule);
+            // $path= 'uploads/schedule/'.$schedule->avatar;
+            // if(File::exists($path)){
+            //     File::delete($path);
+    
+            //   }
+            $schedule->delete();
+            return redirect('admin/schedule')->with('success' , 'Schedule Delete Successfully');
+        }    
     private function appoit()
     {
         $appointment = [

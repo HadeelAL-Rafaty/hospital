@@ -119,8 +119,11 @@ class PatientController extends Controller
      * @param  \App\Models\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Schedule $schedule)
+    public function destroy( $patient)
     {
-        //
-    }
+
+            $patient = Patient::find($patient);
+            $patient->delete();
+            return redirect('admin/patient')->with('success' , 'Patient Delete Successfully');
+        }    
 }

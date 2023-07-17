@@ -33,10 +33,14 @@
                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="{{ URL('admin/doctor/edit/'.$doctor->id.'/'.$doctor->user_id) }}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                </div>
+                                    <form method="POST" action="{{url('admin/doctor/delete/'. $doctor->id)}}" >
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="dropdown-item" > <i class="fa fa-trash-o m-r-5"></i>  Delete  </button>
+
+                                    </form>                                </div>
                             </div>
-                            <h4 class="doctor-name text-ellipsis"><a href="{{URL('admin/doctor/profile/'.$doctor->id)}}">{{ $doctor->user->name }}</a></h4>
+                            <h4 class="doctor-name text-ellipsis"><a href="{{URL('admin/doctor/profile/'.$doctor->id)}}">{{ $doctor->user->name ?? '' }}</a></h4>
                             <div class="doc-prof">{{ $doctor->department->name }} </div>
                             <div class="user-country">
                                 <i class="fa fa-map-marker"></i> {{ $doctor->address }}

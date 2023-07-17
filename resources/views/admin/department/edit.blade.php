@@ -21,8 +21,8 @@
                         @endforeach
                         @endif
                     </div>
-                    <form  method="POST" action="{{route('department.update', $department->id)}}"  enctype="multipart/form-data">
-                        {{-- <form  method="POST" action="{{url('admin/department/'. $department->id) }}"  enctype="multipart/form-data">    --}}
+                    {{-- <form  method="POST" action="{{route('department.update', $department->id)}}"  enctype="multipart/form-data"> --}}
+                        <form  method="POST" action="{{url('admin/department/'. $department->id) }}"  enctype="multipart/form-data">   
                         @csrf
                         @method('PUT')
                         <div class="row">

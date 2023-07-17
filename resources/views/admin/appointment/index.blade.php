@@ -44,8 +44,12 @@
                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                            <div class="dropdown-menu dropdown-menu-right">
                                                <a class="dropdown-item" href="{{ URL('admin/appointment/edit/'.$appointment->id) }}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appointment"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                           </div>
+                                               <form method="POST" action="{{url('admin/appointment/delete/'. $appointment->id)}}" >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="dropdown-item" > <i class="fa fa-trash-o m-r-5"></i>  Delete  </button>
+
+                                            </form>                                           </div>
                                        </div>
                                    </td>
                                </tr>
