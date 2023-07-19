@@ -115,11 +115,12 @@ $user_id=$user->id;
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,$user_id)
     {
         $department=Department::all();
         $doctor=Doctor::findOrFail($id);
-        return view('admin.doctor.edit' , compact('doctor','department'));
+        $user_id=User::findOrFail($user_id);
+        return view('doctors.doctor.edit' , compact('doctor','department','user_id'));
     }
 
     /**
@@ -129,50 +130,61 @@ $user_id=$user->id;
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDoctorRequest $request ,$doctor_id)
+    public function update(UpdateDoctorRequest $request, $user_id, $id)
     {
-
-
-        $firstname= $request->input('firstname');
-        $lastname = $request->input('lastname');
+        $name = $request->input('name');
         $date_of_birth = $request->input('date_of_birth');
         $email = $request->input('email');
         $password = $request->input('password');
         $gender = $request->input('gender');
         $address = $request->input('address');
-        $phone= $request->input('phone');
-        $avatar= $request->input('avatar');
-        $biography= $request->input('biography');
-        $status= $request->input('status');
+        $phone = $request->input('phone');
+        $avatar = $request->input('avatar');
+        $biography = $request->input('biography');
+        $status = $request->input('status');
         $department_id = $request->input('department_id');
 
+        // التحقق من وجود سجل موجود بنفس البريد الإلكتروني
+        $user = User::where('email', $email)->first();
 
-        $doctor=Doctor::find($doctor_id);
-        $doctor->firstname = $firstname;
-        $doctor->lastname = $lastname;
+        if ($user && $user->id != $user_id) {
+            // يوجد سجل موجود بنفس البريد الإلكتروني
+            return back()->withErrors(['email' => 'This email is already in use.']);
+        }
+
+        // تحديث بيانات المستخدم
+        $user = User::findOrFail($user_id);
+        $user->name = $name;
+        $user->password = Hash::make($password);
+        $user->email = $email;
+        $user->role = "doctor";
+        $user->update();
+
+        // تحديث بيانات الطبيب
+        $doctor = Doctor::findOrFail($id);
         $doctor->department_id = $department_id;
         $doctor->date_of_birth = $date_of_birth;
-        $doctor->email = $email;
-        $doctor->password = $password;
         $doctor->gender = $gender;
         $doctor->phone = $phone;
         $doctor->biography = $biography;
         $doctor->status = $status;
         $doctor->address = $address;
-        if($request->hasFile('avatar')){
-            $file=$request->file('avatar');
-            $ext=$file->getClientOriginalExtension();
-            $filename=time().'.'.$ext;
-            $file->move('auploads/doctor/',$filename);
-            $request->avatar =$filename;
-            $doctor->avatar = $filename;
 
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $ext;
+            $file->move('auploads/doctor/', $filename);
+            $doctor->avatar = $filename;
         }
-    $doctor->update();
-       // dd($request);
+
+        $doctor->update();
+
         $request->session()->flash('success', 'Doctor Updated Successfully.');
-    return redirect('admin/doctor');
-}
+
+        return redirect('doctors/doctor');
+    }
+
 
 
     /**

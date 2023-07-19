@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
+use App\Models\Doctor;
+use App\Models\Patient;
 
 class HomeController extends Controller
 {
@@ -23,7 +26,11 @@ class HomeController extends Controller
      */
     public  function index()
     {
-        return view('admin.dashboard');
+        $patient = Patient::all();
+        $doctor=Doctor::all();
+        $appointments=Appointment::all();
+
+        return view('admin.dashboard', compact('patient','doctor','appointments'));
     }
     public function index1()
     {

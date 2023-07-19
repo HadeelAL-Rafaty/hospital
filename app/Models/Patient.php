@@ -21,6 +21,11 @@ class Patient extends Model
         return Carbon::createFromFormat('d/m/Y', $this->date_of_birth)->age;
     }
 
+    public static function countPatients()
+    {
+        $count = Patient::count();
+        return $count;
+    }
 public function appointment()
 {
     return $this->hasMany(Appointment::class, 'patient_id', 'id');

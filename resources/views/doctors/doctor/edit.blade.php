@@ -1,12 +1,12 @@
-@extends('layouts.admin.admin_layout')
+@extends('layouts.doctor.doctor_layout')
 
-@section('admin')
+@section('doctor')
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
                 <h4 class="page-title">Edit Doctor</h4>
-                <a href="{{URL('admin/doctor')}}" class="btn btn-primary btn-rounded float-right"><i class="fa fa-backward"></i> Back</a>
+                <a href="{{URL('doctors/doctor')}}" class="btn btn-primary btn-rounded float-right"><i class="fa fa-backward"></i> Back</a>
 
             </div>
         </div>
@@ -20,7 +20,7 @@
                         @endif
                     </div>
 
-                    <form  method="POST" action="{{route('doctors.update',$doctor->id)}}"  enctype="multipart/form-data">
+                    <form  method="POST" action="{{route('doctors.updates',$doctor->id)}}"  enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row">

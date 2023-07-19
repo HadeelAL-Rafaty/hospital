@@ -39,47 +39,46 @@ class AppointmentController extends Controller
         return view('appointment',compact('doctors'));
     }
 
-public function getAvailableAppointment(\Illuminate\Http\Request $request){
-    //dd($request);
+    public function getAvailableAppointment(\Illuminate\Http\Request $request){
+        //dd($request);
 
-    $doctor_id = $request->doctor_id;
+        $doctor_id = $request->doctor_id;
 
-    $start_date_time =  Carbon::parse($request->date);
+        $start_date_time =  Carbon::parse($request->date);
         $appointments =Appointment::where('doctor_id', $doctor_id)
-    ->whereDate('start_date_time', "=",$start_date_time)->get();;
+            ->whereDate('start_date_time', "=",$start_date_time)->get();;
         $workingHour = Schedule::where('doctor_id', $doctor_id)->Where('available_days', $start_date_time->dayOfWeek)->get()->toArray();;
-    $dateArray = [];
+        $dateArray = [];
 // generate time for each day
-    if (count($workingHour) ){
-        $times = $this->generateTimes($workingHour);
+        if (count($workingHour) ){
+            $times = $this->generateTimes($workingHour);
 
-        // extract date from appoint start date time
+            // extract date from appoint start date time
 
-        foreach ($appointments as $appointment) {
-            // remove time according to appointment time
-           // $appointmentDate = Carbon::parse($appointment['start_date_time'])->format('Y-m-d');
+            foreach ($appointments as $appointment) {
+                // remove time according to appointment time
+                // $appointmentDate = Carbon::parse($appointment['start_date_time'])->format('Y-m-d');
 
-            $times = $this->removeTime($times, $appointment);
+                $times = $this->removeTime($times, $appointment);
+            }
+
+            // add time to date array
+            $dateArray =  $times;
+
+            return response()->json(['data' => $dateArray]);
+        }
+        else{
+            return response()->json(['message' => "the doctor not has schedule"]);
 
         }
-        // add time to date array
-        $dateArray =  $times;
-
-        return response()->json(['data' => $dateArray]);
-    }
-    else{
-        return response()->json(['message' => "the doctor not has schedule"]);
-
-    }
     }
     private function generateTimes(array $workingHour)
     {
 
-
-            // the working time of the workers must be reduced by at least 1 hour.
-            // because there is no way for you to have an appointment on your end working time.
-            $startTime = Carbon::parse($workingHour[0]['start_time']);
-            $endTime = Carbon::parse($workingHour[0]['end_time'])->subMinutes(30);
+        // the working time of the workers must be reduced by at least 1 hour.
+        // because there is no way for you to have an appointment on your end working time.
+        $startTime = Carbon::parse($workingHour[0]['start_time']);
+        $endTime = Carbon::parse($workingHour[0]['end_time'])->subMinutes(30);
         $times = [];
         while ($startTime->lte($endTime)) {
             $times[] = $startTime->format('H:i');
@@ -97,7 +96,7 @@ public function getAvailableAppointment(\Illuminate\Http\Request $request){
         $startTime = $startTime->format('H:i');
         $endTime = $endTime->format('H:i');
 
-        $t = array_values(array_diff($times, [$startTime, $endTime]));
+        $t = array_values(array_diff($times, [$startTime]));
 
         return $t;
     }

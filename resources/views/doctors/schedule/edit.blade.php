@@ -1,6 +1,6 @@
-@extends('layouts.admin.admin_layout')
+@extends('layouts.doctor.doctor_layout')
 
-   @section('admin')
+@section('doctor')
        <div class="page-wrapper">
            <div class="content">
                <div class="row">

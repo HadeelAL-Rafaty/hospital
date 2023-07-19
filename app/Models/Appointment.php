@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    protected $fillable = [ 'patient_id', 'doctor_id','start_date_time','end_date_time'];
+    protected $fillable = [ 'patient_id', 'doctor_id','start_date_time','end_date_time','notes'];
 
+    public static function countAppointments()
+    {
+        $count =Appointment::count();
+        return $count;
+    }
     public function doctor()
     {
         return $this->belongsTo(Doctor::class, 'doctor_id','id');

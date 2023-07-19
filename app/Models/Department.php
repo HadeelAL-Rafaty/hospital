@@ -15,7 +15,11 @@ class Department extends Model
 
 
     ];
-
+    public static function countDepartments()
+    {
+        $count =Department::count();
+        return $count;
+    }
     public function doctor()
     {
         return $this->hasMany(Doctor::class,'department_id','id');
