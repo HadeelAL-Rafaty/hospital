@@ -83,7 +83,11 @@ return [
     */
 
     'locale' => 'en',
+    'languages' =>[
+        'ar'=>'العربية',
+        'en'=>'English',
 
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -185,6 +189,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -211,5 +216,6 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
+    'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
 
 ];

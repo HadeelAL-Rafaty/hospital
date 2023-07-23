@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return app()->getLocale();
     return view('index');
 });
 
@@ -40,14 +41,13 @@ Route::get('/index', function () {
 Route::get('loginpage', function () {
     return view('loginpage');
 });
+//
 
-Route::get('signup', function () {
-    return view('signup');
-});
 Route::get('appointment',[App\Http\Controllers\Frontend\AppointmentController::class,'add_doctor']);
 Route::get('get_Available_Appointment',[App\Http\Controllers\Frontend\AppointmentController::class,'getAvailableAppointment'])->name('getAvailableAppointment');
 Route::post('appointment',[App\Http\Controllers\Frontend\AppointmentController::class,'store'])->name('GetAppointmentAdd');
-
+//
+Route::get('/lang/{lang}', [App\Http\Controllers\LanguagesController::class,'switchLang'])->name('lang.switch');
 
 Auth::routes();
 Route::get('doctor/home1', [App\Http\Controllers\HomeController::class, 'index2'])->name('home1');

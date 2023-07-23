@@ -52,6 +52,20 @@
             <li class="nav-item">
                 <a class="btn btn-primary ml-lg-3" href="{{ route('register') }}">Register</a>
             </li>
+            <li class="nav-item dropdown">
+                <a href="#" class=" nav-link dropdown-toggle nav-link " data-toggle="dropdown" role="button"
+                   aria-haspopup="true" aria-expanded="false">
+                    <span class="hidden-md-down">{{ LaravelLocalization::getCurrentLocaleNative() }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <a class="dropdown-item"rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </a>
+                    @endforeach
+                </div>
+            </li>
         </ul>
       </div> <!-- .navbar-collapse -->
     </div> <!-- .container -->
