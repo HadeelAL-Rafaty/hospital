@@ -74,9 +74,9 @@
                                                     <div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
 
                                                     <button type="submit" class="btn btn-danger">Delete</button>
-
+                                                    </div>
                                                 </form>
-                   
+
                        </div>
                    </div>
                </div>

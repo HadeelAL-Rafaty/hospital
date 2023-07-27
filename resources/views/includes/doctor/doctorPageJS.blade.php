@@ -2,13 +2,18 @@
 <script src="{{asset('admin/assets/js/popper.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/jquery.slimscroll.js')}}"></script>
-{{--<script src="{{asset('admin/assets/js/Chart.bundle.js')}}"></script>
-<script src="{{asset('admin/assets/js/chart.js')}}"></script>--}}
+<script src="{{asset('admin/assets/js/Chart.bundle.js')}}"></script>
+<script src="{{asset('admin/assets/js/chart.js')}}"></script>
 <script src="{{asset('admin/assets/js/select2.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/moment.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/bootstrap-datetimepicker.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/app.js')}}"></script>
-
+{{--<script src="{{asset('admin/assets/js/jquery-ui.min.html')}}"></script>
+<script src="{{asset('admin/assets/js/fullcalendar.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery.fullcalendar.js')}}"></script>--}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 <script>
     $(function () {
         $('#datetimepicker3').datetimepicker({

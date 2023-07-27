@@ -7,8 +7,10 @@
 <link rel="stylesheet" type="text/css" href="{{asset('admin/assets/css/select2.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('admin/assets/css/bootstrap-datetimepicker.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('admin/assets/css/style.css')}}">
+{{--<link rel="stylesheet" type="text/css" href="{{asset('admin/assets/css/fullcalendar.min.css')}}">--}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
 
-{{--    <!--[if lt IE 9]>
+    <!--[if lt IE 9]>
     <script src="{{('admin/assets/js/html5shiv.min.js')}}"></script>
     <script src="{{('admin/assets/js/respond.min.js')}}"></script>
-    <![endif]-->--}}
+    <![endif]-->

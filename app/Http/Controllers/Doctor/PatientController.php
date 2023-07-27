@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Requests\UpdateScheduleRequest;
+use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Schedule;
 use App\Models\Department;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
@@ -22,28 +24,35 @@ class PatientController extends Controller
     public function index()
     {
         $doctor = Auth::user()->doctor;
-        $patients = $doctor->patients;
+        $appointments = $doctor->appointments;
 
-        if ($patients !== null && $patients->count() > 0) {
+        $patients = [];
+        if ($appointments->count() > 0) {
+            foreach ($appointments as $appointment) {
+                $patient = $appointment->patient;
+                $patient->appointment = $appointment; // إضافة الموعد إلى بيانات المريض
+                $patients[] = $patient;
+            }
+
             return view('doctors.patient.index', compact('patients', 'doctor'));
         } else {
-            // لا توجد بيانات مرضى أو $patients هو null
-            $message = 'لا توجد بيانات مرضى لهذا الطبيب.';
+            $message = 'لا توجد بيانات مواعيد لهذا الطبيب.';
             return view('doctors.patient.index', compact('message', 'patients'));
         }
     }
+
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('admin.patient.create');
-        //dd($doctor);
 
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -51,37 +60,22 @@ class PatientController extends Controller
      * @param  \App\Http\Requests\StorePatientRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePatientRequest $request)
+    public function store(Request $request, $id)
     {
+        $notes = $request->input('notes');
+        $appointment=Appointment::findOrFail($id);
+        $appointment->notes = $notes;
+        $appointment->save();
 
-        $firstname= $request->input('firstname');
-        $lastname = $request->input('lastname');
-        $date_of_birth = $request->input('date_of_birth');
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $gender = $request->input('gender');
-        $address = $request->input('address');
-        $phone= $request->input('phone');
-        $status= $request->input('status');
+        $request->session()->flash('success', 'Notes Added Successfully.');
 
-
-
-
-        $patient =new Patient();
-        $patient->firstname = $firstname;
-        $patient->lastname = $lastname;
-        $patient->date_of_birth = $date_of_birth;
-        $patient->email = $email;
-        $patient->password = $password;
-        $patient->gender = $gender;
-        $patient->phone = $phone;
-        $patient->status = $status;
-        $patient->address = $address;
-        $patient->save();
-        // dd($request);
-        $request->session()->flash('success', 'Patient Add Successfully.');
-        return redirect('admin/patient');
+        return redirect()->route('home_p', compact('appointment'));
     }
+
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -100,11 +94,12 @@ class PatientController extends Controller
      * @param  \App\Models\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function add_notes($id)
     {
         $patient=Patient::findOrFail($id);
+        $appointment = Appointment::findOrFail($id);
 
-        return view('admin.patient.edit' , compact('patient'));
+        return view('doctors.patient.add_notes' , compact('appointment'));
 
     }
 

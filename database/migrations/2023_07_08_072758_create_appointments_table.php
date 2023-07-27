@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('doctor_id');
             $table->dateTime('start_date_time');
             $table->dateTime('end_date_time');
+            $table->text('notes')->nullable();
             $table->timestamps();
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
             $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');

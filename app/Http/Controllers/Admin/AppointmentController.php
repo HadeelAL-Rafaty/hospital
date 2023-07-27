@@ -60,8 +60,8 @@ class AppointmentController extends Controller
                 // $appointmentDate = Carbon::parse($appointment['start_date_time'])->format('Y-m-d');
 
                 $times = $this->removeTime($times, $appointment);
-
             }
+
             // add time to date array
             $dateArray =  $times;
 
@@ -74,7 +74,6 @@ class AppointmentController extends Controller
     }
     private function generateTimes(array $workingHour)
     {
-
 
         // the working time of the workers must be reduced by at least 1 hour.
         // because there is no way for you to have an appointment on your end working time.
@@ -97,7 +96,7 @@ class AppointmentController extends Controller
         $startTime = $startTime->format('H:i');
         $endTime = $endTime->format('H:i');
 
-        $t = array_values(array_diff($times, [$startTime, $endTime]));
+        $t = array_values(array_diff($times, [$startTime]));
 
         return $t;
     }
@@ -131,7 +130,7 @@ class AppointmentController extends Controller
 
 // تعيين وقت النهاية في الكائن $appointment
         $appointment->end_date_time =$endTime;
-        dd($request);
+      //  dd($request);
 
         $appointment->save();
         $request->session()->flash('success', 'Appointment Add Successfully.');

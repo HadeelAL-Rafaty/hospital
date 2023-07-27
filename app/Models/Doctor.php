@@ -32,6 +32,12 @@ class Doctor extends  Model
         'password',
         'remember_token',
     ];
+
+    public static function countDoctors()
+    {
+        $count =Doctor::count();
+        return $count;
+    }
     public function user()
     {
 
@@ -45,7 +51,7 @@ class Doctor extends  Model
         return $this->hasMany(Transaction::class,'id');
     }
 
-    public function appointment()
+    public function appointments()
     {
         return $this->hasMany(Appointment::class, 'doctor_id', 'id');
     }

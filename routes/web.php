@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return app()->getLocale();
     return view('index');
 });
 
@@ -40,29 +41,35 @@ Route::get('/index', function () {
 Route::get('loginpage', function () {
     return view('loginpage');
 });
+//
 
-Route::get('signup', function () {
-    return view('signup');
-});
 Route::get('appointment',[App\Http\Controllers\Frontend\AppointmentController::class,'add_doctor']);
 Route::get('get_Available_Appointment',[App\Http\Controllers\Frontend\AppointmentController::class,'getAvailableAppointment'])->name('getAvailableAppointment');
 Route::post('appointment',[App\Http\Controllers\Frontend\AppointmentController::class,'store'])->name('GetAppointmentAdd');
-
+//
+Route::get('/lang/{lang}', [App\Http\Controllers\LanguagesController::class,'switchLang'])->name('lang.switch');
 
 Auth::routes();
 Route::get('doctor/home1', [App\Http\Controllers\HomeController::class, 'index2'])->name('home1');
 Route::prefix('doctors')->middleware(['auth','doctor'])->group (function() {
     //patient Route
-    Route::get('patient',[App\Http\Controllers\Doctor\PatientController::class,'index']);
+    Route::get('patient',[App\Http\Controllers\Doctor\PatientController::class,'index'])->name('home_p');
+    Route::get('patient/add_notes/{id}', [App\Http\Controllers\Doctor\PatientController::class, 'add_notes']);
+    Route::post('patients/{id}', [App\Http\Controllers\Doctor\PatientController::class, 'store'])->name('store_name');
 
     // doctor
     Route::get('doctor',[App\Http\Controllers\Doctor\DoctorController::class,'index']);
+    Route::get('doctor/edit/{user_id}/{id}', [App\Http\Controllers\Doctor\DoctorController::class, 'edit']);
+    Route::put('doctor/update/{user_id}/{id}', [App\Http\Controllers\Doctor\DoctorController::class, 'update'])->name('doctors.updates');
     // schedule
     Route::get('schedule',[App\Http\Controllers\Doctor\ScheduleController::class,'index']);
     Route::get('schedule/create',[App\Http\Controllers\Doctor\ScheduleController::class,'create']);
     Route::post('schedule',[App\Http\Controllers\Doctor\ScheduleController::class,'store']);
     Route::get('schedule/edit/{id}', [App\Http\Controllers\Doctor\ScheduleController::class, 'edit']);
     Route::put('schedule/update/{id}', [App\Http\Controllers\Doctor\ScheduleController::class, 'update'])->name('schedules.update');
+//appointment
+    Route::get('appointment',[App\Http\Controllers\Doctor\AppointmentController::class,'index']);
+    Route::get('/get-events', [App\Http\Controllers\Doctor\AppointmentController::class, 'getEvents']);
 
 
 });

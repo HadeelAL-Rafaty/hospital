@@ -25,6 +25,8 @@ class PatientController extends Controller
         return view('admin.patient.index', compact('patient'));
     }
 
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -125,5 +127,5 @@ class PatientController extends Controller
             $patient = Patient::find($patient);
             $patient->delete();
             return redirect('admin/patient')->with('success' , 'Patient Delete Successfully');
-        }    
+        }
 }
