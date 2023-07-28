@@ -4,6 +4,13 @@
     <div class="page-wrapper">
         <div class="content">
             <div class="row">
+                @if(session('success'))
+                    <div class="col-md-12">
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    </div>
+                @endif
                 <div class="col-sm-7 col-6">
                     <h4 class="page-title">My Profile</h4>
                 </div>

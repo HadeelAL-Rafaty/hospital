@@ -21,6 +21,8 @@
 @yield('contact')
 @yield('doctor')
 @yield('Home')
+@yield('schedule')
+
 
 
 <!--Contact -->

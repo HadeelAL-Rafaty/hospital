@@ -22,7 +22,7 @@ class ScheduleController extends Controller
         $doctor = Auth::user()->doctor;
         $schedules = $doctor->schedule;
        // dd($schedules);
-        return view('doctors.schedule.index', compact('schedules'));
+        return view('doctors.schedule.index', compact('schedules' ,'doctor'));
     }
 
     /**
@@ -50,7 +50,6 @@ class ScheduleController extends Controller
         $available_days = $request->input('available_days');
         $start_time = $request->input('start_time');
         $end_time= $request->input('end_time');
-        $status= $request->input('status');
 
         /*        $available_days_string = implode(',', $available_days);*/
 
@@ -59,7 +58,6 @@ class ScheduleController extends Controller
         $schedule->available_days = $available_days;
         $schedule->end_time = $end_time;
         $schedule->start_time = $start_time;
-        $schedule->status = $status;
         $schedule->save();
         //  dd($request);
         $request->session()->flash('success', 'Schedule Add Successfully.');
@@ -104,7 +102,6 @@ class ScheduleController extends Controller
         $available_days = $request->input('available_days');
         $start_time = $request->input('start_time');
         $end_time= $request->input('end_time');
-        $status= $request->input('status');
 
         /*        $available_days_string = implode(',', $available_days);*/
         $schedule=Schedule::find($schedule_id);
@@ -112,7 +109,6 @@ class ScheduleController extends Controller
         $schedule->available_days = $available_days;
         $schedule->end_time = $end_time;
         $schedule->start_time = $start_time;
-        $schedule->status = $status;
         $schedule->update();
         //  dd($request);
         $request->session()->flash('success', 'Schedule update Successfully.');

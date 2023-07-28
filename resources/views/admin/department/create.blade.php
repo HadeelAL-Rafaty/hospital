@@ -32,22 +32,6 @@
                                <label>Department Name<span class="text-danger">* </span></label>
                                <input class="form-control" type="text" name="name" id="name">
                                </div>
-                           <div class="form-group">
-                               <label class="display-block">Department Status</label>
-                               <div class="form-check form-check-inline">
-                                   <input class="form-check-input" type="radio" name="status" id="product_active" value="Active" checked>
-                                   <label class="form-check-label" for="product_active">
-                                       Active
-                                   </label>
-                               </div>
-                               <div class="form-check form-check-inline">
-                                   <input class="form-check-input" type="radio" name="status" id="product_inactive" value="Inactive">
-                                   <label class="form-check-label" for="product_inactive">
-                                       Inactive
-                                   </label>
-                               </div>
-                               <span class="text-danger"> </span>
-                           </div>
                            <div class="m-t-20 text-center">
                                <button class="btn btn-primary submit-btn">Create Department</button>
                            </div>

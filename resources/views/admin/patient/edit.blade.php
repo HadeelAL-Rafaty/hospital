@@ -26,20 +26,24 @@
                                         </ul>
                                     </div>
                                 @endif
+                            </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Full Name <span class="text-danger">*</span></label>
                                             <input class="form-control" type="text" name="fullname" value="{{ $patient->fullname }}">
-                                            <span class="text-danger"> </span>
+                                            @error('fullname')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
-                                    </div>
 
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>ID Number <span class="text-danger">*</span></label>
                                             <input class="form-control" type="text" name="idnumber" value="{{ $patient->idnumber }}">
-                                            <span class="text-danger"> </span>
+                                            @error('idnumber')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -48,7 +52,9 @@
                                         <div class="form-group">
                                             <label>Phone </label>
                                             <input class="form-control" type="text" name="phone" value="{{ $patient->phone }}">
-                                            <span class="text-danger"> </span>
+                                            @error('phone')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
 
 

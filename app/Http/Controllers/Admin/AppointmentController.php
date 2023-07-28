@@ -34,8 +34,8 @@ class AppointmentController extends Controller
     public function create()
     {
         $patient=Patient::all();
-        $department = Department::where('status', 'active')->get();
-        $doctor=Doctor::where('status', '1')->get();
+        $department = Department::all();
+        $doctor=Doctor::all();
         return view('admin.appointment.create',compact('patient','department','doctor'));
     }
 
@@ -174,19 +174,23 @@ class AppointmentController extends Controller
         $doctor_id = $request->input('doctor_id');
         $patient_id = $request->input('patient_id');
         $start_date_time = $request->input('start_date_time');
-        $end_date_time= $request->input('end_date_time');
-        $status= $request->input('status');
+        $date= $request->input('date');
 
         $appointment=Appointment::find($appointment_id);
         $appointment->doctor_id = $doctor_id;
         $appointment->patient_id  = $patient_id ;
-        $appointment->start_date_time = $start_date_time;
-        $appointment->end_date_time = $end_date_time;
-        $appointment->status = $status;
+        $startTime = Carbon::parse($date." ".$start_date_time);
+        $appointment->start_date_time = $startTime;
+
+// إضافة 30 دقيقة إلى وقت البداية
+        $endTime = Carbon::parse($date." ".$start_date_time)->addMinutes(30);
+
+// تعيين وقت النهاية في الكائن $appointment
+        $appointment->end_date_time =$endTime;
         $appointment->update();
         //  dd($request);
         $request->session()->flash('success', 'Appointment Updated Successfully.');
-        return redirect('admin/appointment');
+        return response()->json(['message' => 'Success'], 200);
     }
 
     /**
@@ -195,9 +199,9 @@ class AppointmentController extends Controller
      * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Appointment $appointment)
+    public function destroy($id)
     {
-        $appointment = Appointment::find($appointment);
+        $appointment = Appointment::find($id);
         $appointment->delete();
         return redirect('admin/appointment')->with('success' , 'Appointment Delete Successfully');    }
 }

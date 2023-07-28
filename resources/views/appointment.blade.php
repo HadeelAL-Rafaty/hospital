@@ -19,29 +19,48 @@
    <div class="page-section">
     <div class="container">
       <h1 class="text-center wow fadeInUp">Make an Appointment</h1>
+        <div class="row">
+            <div class="alert alert-danger" style="display: none">
+                <span class="text-danger"> </span>
+                <button type="button" class="close"  onclick="closeError()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
+        </div>
         <div class="row mt-5 ">
+
           <div class="col-12 col-sm-6 py-2 wow fadeInLeft">
-            <input type="text" class="form-control" placeholder="Full name" name="fullname">
+            <input type="text" class="form-control" placeholder="Full name" name="fullname" required>
+              <span class="text-danger"> </span>
           </div>
           <div class="col-12 col-sm-6 py-2 wow fadeInRight">
-            <input type="text" class="form-control" placeholder="ID Number.." name="idnumber">
+            <input type="text" class="form-control" placeholder="ID Number.." name="idnumber" required>
+              <span class="text-danger"> </span>
+
           </div>
           <div class="col-12 col-sm-6 py-2 wow fadeInLeft" data-wow-delay="300ms">
-            <input type="text" class="form-control" placeholder="Phone Number.." name="phone">
+            <input type="text" class="form-control" placeholder="Phone Number.." name="phone" required>
+              <span class="text-danger"> </span>
+
           </div>
-          <div class="col-12 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
-              <select class="select" name="doctor_id" id="doctor_id">
-                  <option>Select Doctor</option>
+
+            <div class="col-12 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
+              <select class="select" name="doctor_id" id="doctor_id" required>
+                  <option>Select Doctor --- Department</option>
                   @foreach ($doctors as $doctor)
-                      <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
+                      <option value="{{ $doctor->id }}">{{ $doctor->user->name }} --- {{ $doctor->department->name ?? ''}}</option>
                   @endforeach
               </select>
+              <span class="text-danger"> </span>
+
           </div>
             <div class="col-12 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
 
             <div class="cal-icon">
-                <input type="text" class="form-control datetimepicker" name="date"  id="datetime"  placeholder="Date">
+                <input type="text" class="form-control datetimepicker" name="date"  id="datetime"  placeholder="Date" required>
+                <span class="text-danger"> </span>
+
             </div>
             </div>
         </div>
@@ -71,6 +90,8 @@
    </div>
 
 
+
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script>
@@ -95,7 +116,11 @@
           var formattedDate = moment(inputDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
          // alert(formattedDate);
 
-
+          if (!( doctor && inputDate)) {
+              var errorMessage = "Please fill in all fields.";
+              displayError(errorMessage);
+              return;
+          }
 
           var  url = "{{ route('getAvailableAppointment') }}";
 
@@ -114,6 +139,7 @@
                     //  console.log(response.data[0]); // طباعة قيمة المتغير response في وحدة تحكم المستعرض
 
                       var availabilityResults = document.getElementById('availability_results');
+
                       availabilityResults.innerHTML = '';
                       if (response?.data?.length > 0) {
                           var timeButtons = document.createElement('div'); // إنشاء عنصر div للأزرار
@@ -162,8 +188,17 @@
           var start_date_times=$("input[type='radio'][name='start_date_time']:checked").val();
           ;
           //console.log(start_date_times);
-
+          if (!(fullnames && idnumbers &&phones && doctor && dates && start_date_times)) {
+              var errorMessage = "Please fill in all fields .";
+              displayError(errorMessage);
+              return;
+          }
           var  url = "{{ route('GetAppointmentAdd') }}";
+          if (!(fullnames && idnumbers &&phones && doctor && dates && start_date_times)) {
+              var errorMessage = "Please fill in all fields .";
+              displayError(errorMessage);
+              return;
+          }
           let mail = {
               _token: "{{ csrf_token() }}",
               name: 'Mister. ABC',
@@ -194,6 +229,33 @@
 
 
 
+
+      function displayError(errorMessage) {
+          var errorMessageDiv = document.querySelector('.alert.alert-danger');
+          if (errorMessageDiv) {
+              var errorText = errorMessageDiv.querySelector('.text-danger');
+              if (errorText) {
+                  errorText.textContent = errorMessage;
+              }
+
+              var closeButton = errorMessageDiv.querySelector('.close');
+              if (closeButton) {
+                  closeButton.addEventListener('click', function() {
+                      errorMessageDiv.style.display = 'none';
+                  });
+              }
+
+              errorMessageDiv.style.display = 'block';
+          }
+      }
+      function closeError() {
+          var errorMessageDiv = document.querySelector('.alert.alert-danger');
+          if (errorMessageDiv) {
+              errorMessageDiv.style.display = 'none';
+
+
+          }
+      }
   </script>
 
 @stop

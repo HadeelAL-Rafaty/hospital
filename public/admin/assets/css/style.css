@@ -60,20 +60,6 @@ Version      : 1.0
 html {
 	height: 100%;
 }
-/* app.css */
-.language-link {
-    text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    margin-right: 10px;
-    color: #333;
-}
-
-.language-link.active {
-    background-color: #007bff;
-    color: #fff;
-}
-
 body {
 	font-family: 'Rubik', sans-serif;
 	font-size: 0.875rem;

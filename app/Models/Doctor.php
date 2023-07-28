@@ -23,8 +23,7 @@ class Doctor extends  Model
         'address',
         'phone',
         'avatar',
-        'biography',
-        'status',
+
 
 
     ];

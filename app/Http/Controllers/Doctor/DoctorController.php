@@ -31,70 +31,8 @@ class DoctorController extends Controller
         return view('doctors.doctor.index',compact('doctor'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(){
-        $department = Department::where('status', 'active')->get();
-        return view('admin.doctor.create',compact('department'));
 
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreDoctorRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreDoctorRequest $request)
-    {
-        $firstname= $request->input('firstname');
-        $lastname = $request->input('lastname');
-        $date_of_birth = $request->input('date_of_birth');
-        $email = $request->input('email');
-        $user_id = $request->input('user_id');
-        $password = $request->input('password');
-        $department_id = $request->input('department_id');
-        $gender = $request->input('gender');
-        $address = $request->input('address');
-        $phone= $request->input('phone');
-        $avatar= $request->input('avatar');
-        $biography= $request->input('biography');
-        $status= $request->input('status');
-
-        $user =new User();
-        $user->name = $firstname." ". $lastname;
-        $user->email = $email;
-        $user->password = Hash::make($password);
-        $user->role = "doctor";
-
-        $user->save();
-$user_id=$user->id;
-        $doctor =new Doctor();
-        $doctor->user_id = $user_id;
-        $doctor->date_of_birth = $date_of_birth;
-        $doctor->department_id = $department_id;
-        $doctor->gender = $gender;
-        $doctor->phone = $phone;
-        $doctor->biography = $biography;
-        $doctor->status = $status;
-        $doctor->address = $address;
-        $auploadPath='auploads/store/';
-        if($request->hasFile('avatar')){
-            $file=$request->file('avatar');
-            $ext=$file->getClientOriginalExtension();
-            $filename=time().'.'.$ext;
-            $file->move('auploads/doctor/',$filename);
-            $request->avatar =$auploadPath.$filename;
-        }
-        $doctor->avatar = $filename;
-
-        $doctor->save();
-        $request->session()->flash('success', 'Doctor Add Successfully.');
-        return redirect('admin/doctor');
-    }
 
     /**
      * Display the specified resource.
@@ -105,7 +43,7 @@ $user_id=$user->id;
     public function show($id)
     {
         $doctor=Doctor::findOrFail($id);
-        $doctors = Doctor::where('status', '1')->get();
+        $doctors = Doctor::all();
         return view('doctors.doctor.profile' , compact('doctor','doctors'));
     }
 
@@ -140,8 +78,6 @@ $user_id=$user->id;
         $address = $request->input('address');
         $phone = $request->input('phone');
         $avatar = $request->input('avatar');
-        $biography = $request->input('biography');
-        $status = $request->input('status');
         $department_id = $request->input('department_id');
 
         // التحقق من وجود سجل موجود بنفس البريد الإلكتروني
@@ -166,8 +102,6 @@ $user_id=$user->id;
         $doctor->date_of_birth = $date_of_birth;
         $doctor->gender = $gender;
         $doctor->phone = $phone;
-        $doctor->biography = $biography;
-        $doctor->status = $status;
         $doctor->address = $address;
 
         if ($request->hasFile('avatar')) {
@@ -182,45 +116,15 @@ $user_id=$user->id;
 
         $request->session()->flash('success', 'Doctor Updated Successfully.');
 
+
         return redirect('doctors/doctor');
     }
 
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Doctor  $doctor
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(  $doctor)
-    {
-        $doctor = Doctor::find($doctor);
-        $path= 'uploads/doctor/'.$doctor->avatar;
-        if(File::exists($path)){
-            File::delete($path);
-
-          }
-        $doctor->delete();
-        return redirect('admin/doctor')->with('success' , 'Doctor Delete Successfully');
-    }
 
 
-public function emailview($id){
-    $doctor=Doctor::find($id);
-    return view('admin.doctor.email_view' ,compact('doctor'));
-}
 
-public  function sendemail(\Illuminate\Http\Request $request,$id){
-    $doctor=Doctor::find($id);
-    $details=[
-        'firstname' =>$request -> firstname,
-    'lastname' =>$request -> lastname,
-    'email' =>$request -> email,
-    'password' =>$request -> password,
 
-    ];
-    Notification::send($doctor,new SendEmailNotification($details));
-    return view('admin.doctor.profile' );
-}
+
 }

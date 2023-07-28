@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\App;
 class language
 {
     public function handle(Request $request, Closure $next) {
-        if (session()->has('locale')) {
+      /*  if (session()->has('locale')) {
             app()->setLocale(session('locale'));
         }
 
-        return $next($request);
+        return $next($request);*/
     }
 }

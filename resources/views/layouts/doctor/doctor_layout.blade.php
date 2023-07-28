@@ -24,6 +24,7 @@
 
 
     @include('includes.doctor.doctorPageJS')
+@stack('scripts')
 
 </body>
 </html>

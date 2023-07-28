@@ -91,12 +91,8 @@
                 <span>{{ Auth::user()->name }}</span>
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="profile.html">My Profile</a>
-                <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-                <a class="dropdown-item" href="settings.html">Settings</a>
-{{--
-                <a class="dropdown-item" href="login.html">Logout</a>
---}}
+
+
                 <div  aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
@@ -110,14 +106,20 @@
                 </div>
             </div>
         </li>
+        <li class="nav-item dropdown">
+            <a href="#" class=" nav-link dropdown-toggle nav-link " data-toggle="dropdown" role="button"
+               aria-haspopup="true" aria-expanded="false">
+                <span class="hidden-md-down">{{ LaravelLocalization::getCurrentLocaleNative() }}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <a class="dropdown-item"rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        {{ $properties['native'] }}
+                    </a>
+                @endforeach
+            </div>
+        </li>
     </ul>
-    <div class="dropdown mobile-user-menu float-right">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="profile.html">My Profile</a>
-            <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-            <a class="dropdown-item" href="settings.html">Settings</a>
-            <a class="dropdown-item" href="login.html">Logout</a>
-        </div>
-    </div>
+
 </div>

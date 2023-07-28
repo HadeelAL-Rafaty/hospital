@@ -49,7 +49,8 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="dropdown-item" > <i class="fa fa-trash-o m-r-5"></i>  Delete  </button>
 
-                                            </form>                                           </div>
+                                            </form>
+                                           </div>
                                        </div>
                                    </td>
                                </tr>

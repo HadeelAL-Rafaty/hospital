@@ -28,7 +28,6 @@
                                    <th>Department</th>
                                    <th>Available Days</th>
                                    <th>Available Time</th>
-                                   <th>Status</th>
                                    <th class="text-right">Action</th>
                                </tr>
                                </thead>
@@ -38,15 +37,39 @@
                                    <tr>
                                    <td><img width="28" height="28" src="{{ asset('auploads/doctor/'.$schedule->doctor->avatar) }}" class="rounded-circle m-r-5" alt=""> {{ $schedule->doctor->user->name }}</td>
                                    <td>{{ $schedule->doctor->department->name }}</td>
-                                   <td>{{ $schedule->available_days }}</td>
+                                       <td>
+                                           @switch($schedule->available_days)
+                                               @case(0)
+                                                   Sunday
+                                                   @break
+                                               @case(1)
+                                                   Monday
+                                                   @break
+                                               @case(2)
+                                                   Tuesday
+                                                   @break
+                                               @case(3)
+                                                   Wednesday
+                                                   @break
+                                               @case(4)
+                                                   Thursday
+                                                   @break
+                                               @case(5)
+                                                   Friday
+                                                   @break
+                                               @case(6)
+                                                   Saturday
+                                                   @break
+                                               @default
+                                                   Unknown Day
+                                           @endswitch
+                                       </td>
                                        <td>{{ $schedule->start_time }}-{{ $schedule->end_time }}</td>
-                                   <td><span class="custom-badge status-green">{{ $schedule->status }}</span></td>
                                    <td class="text-right">
                                        <div class="dropdown dropdown-action">
                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                            <div class="dropdown-menu dropdown-menu-right">
                                                <a class="dropdown-item" href="{{ URL('doctors/schedule/edit/'.$schedule->id) }}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_schedule"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                            </div>
                                        </div>
                                    </td>

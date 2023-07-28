@@ -35,7 +35,7 @@ class DoctorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        $department = Department::where('status', 'active')->get();
+        $department = Department::all();
         return view('admin.doctor.create',compact('department'));
 
     }
@@ -59,8 +59,7 @@ class DoctorController extends Controller
         $address = $request->input('address');
         $phone= $request->input('phone');
         $avatar= $request->input('avatar');
-        $biography= $request->input('biography');
-        $status= $request->input('status');
+
 
         $user =new User();
         $user->name = $firstname." ". $lastname;
@@ -76,8 +75,6 @@ $user_id=$user->id;
         $doctor->department_id = $department_id;
         $doctor->gender = $gender;
         $doctor->phone = $phone;
-        $doctor->biography = $biography;
-        $doctor->status = $status;
         $doctor->address = $address;
         $auploadPath='auploads/store/';
         if($request->hasFile('avatar')){
@@ -103,7 +100,7 @@ $user_id=$user->id;
     public function show($id)
     {
         $doctor=Doctor::findOrFail($id);
-        $doctors = Doctor::where('status', '1')->get();
+        $doctors = Doctor::all();
         return view('admin.doctor.profile' , compact('doctor','doctors'));
     }
 
@@ -133,13 +130,11 @@ $user_id=$user->id;
         $name = $request->input('name');
         $date_of_birth = $request->input('date_of_birth');
         $email = $request->input('email');
-        $password = $request->input('password');
+      //  $password = $request->input('password');
         $gender = $request->input('gender');
         $address = $request->input('address');
         $phone = $request->input('phone');
         $avatar = $request->input('avatar');
-        $biography = $request->input('biography');
-        $status = $request->input('status');
         $department_id = $request->input('department_id');
 
         // التحقق من وجود سجل موجود بنفس البريد الإلكتروني
@@ -153,7 +148,7 @@ $user_id=$user->id;
         // تحديث بيانات المستخدم
         $user = User::findOrFail($user_id);
         $user->name = $name;
-        $user->password = Hash::make($password);
+      //  $user->password = $password;
         $user->email = $email;
         $user->role = "doctor";
         $user->update();
@@ -164,8 +159,6 @@ $user_id=$user->id;
         $doctor->date_of_birth = $date_of_birth;
         $doctor->gender = $gender;
         $doctor->phone = $phone;
-        $doctor->biography = $biography;
-        $doctor->status = $status;
         $doctor->address = $address;
 
         if ($request->hasFile('avatar')) {
@@ -191,15 +184,21 @@ $user_id=$user->id;
      * @param  \App\Models\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $doctor)
+    public function destroy($id,$user_id)
     {
-        $doctor = Doctor::find($doctor);
-        $path= 'uploads/doctor/'.$doctor->avatar;
-        if(File::exists($path)){
-            File::delete($path);
+        $user = User::findOrFail($user_id);
+        $user->delete();
 
-          }
-        $doctor->delete();
+        $doctor = Doctor::find($id);
+        if ($doctor) {
+
+            $path = 'uploads/doctor/' . $doctor->avatar;
+            if (File::exists($path)) {
+                File::delete($path);
+
+            }
+            $doctor->delete();
+        }
         return redirect('admin/doctor')->with('success' , 'Doctor Delete Successfully');
     }
 
@@ -219,6 +218,8 @@ public  function sendemail(\Illuminate\Http\Request $request,$id){
 
     ];
     Notification::send($doctor,new SendEmailNotification($details));
-    return view('admin.doctor.profile' );
+    $request->session()->flash('success', 'send  Successfully.');
+
+    return redirect('admin/doctor');
 }
 }

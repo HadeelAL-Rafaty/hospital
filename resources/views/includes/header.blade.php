@@ -47,6 +47,12 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ ('contact') }}">Contact</a>
           </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ ('schedule') }}">Doctors Schedule</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ ('patient') }}">Patient Information</a>
+            </li>
           <li class="nav-item">
             <a class="btn btn-primary ml-lg-3" href="{{ route('login') }}">Login</a>
           </li>

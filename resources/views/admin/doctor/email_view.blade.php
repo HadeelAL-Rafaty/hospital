@@ -15,7 +15,7 @@
                         @csrf                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label>First Name <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" name="firstname" value="{{ $doctor->firstname }}">
+                                <input class="form-control" type="text" name="firstname" >
                                 @error('firstname')
                                 <small class="text-danger"> {{ $message }} </small>
                                 @enderror
@@ -24,7 +24,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input class="form-control" type="text" name="lastname" value="{{ $doctor->lastname }}">
+                                <input class="form-control" type="text" name="lastname" >
                                 @error('lastname')
                                 <small class="text-danger"> {{ $message }} </small>
                                 @enderror
@@ -33,7 +33,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input class="form-control" type="email" name="email" value="{{ $doctor->email }}">
+                                <input class="form-control" type="email" name="email" >
                                 @error('email')
                                 <small class="text-danger"> {{ $message }} </small>
                                 @enderror
@@ -42,7 +42,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Password</label>
-                                <input class="form-control" type="password" name="password" value="{{ $doctor->password }}">
+                                <input class="form-control" type="password" name="password" >
                                 @error('password')
                                 <small class="text-danger"> {{ $message }} </small>
                                 @enderror

@@ -11,9 +11,7 @@
 {{--<script src="{{asset('admin/assets/js/jquery-ui.min.html')}}"></script>
 <script src="{{asset('admin/assets/js/fullcalendar.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/jquery.fullcalendar.js')}}"></script>--}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
 <script>
     $(function () {
         $('#datetimepicker3').datetimepicker({

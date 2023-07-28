@@ -7,9 +7,7 @@
 <script src="{{('vendor/wow/wow.min.js')}}"></script>
 
 <script src="{{('js/theme.js')}}"></script>
-<script src="{{asset('admin/assets/js/jquery-3.2.1.min.js')}}"></script>
-<script src="{{asset('admin/assets/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('admin/assets/js/jquery.slimscroll.js')}}"></script>
+{{--<script src="{{asset('admin/assets/js/jquery.slimscroll.js')}}"></script>--}}
 <script src="{{asset('admin/assets/js/select2.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/moment.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/bootstrap-datetimepicker.min.js')}}"></script>

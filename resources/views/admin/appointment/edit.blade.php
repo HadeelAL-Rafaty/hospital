@@ -1,115 +1,325 @@
 @extends('layouts.admin.admin_layout')
 
-   @section('admin')
-       <div class="page-wrapper">
-           <div class="content">
-               <div class="row">
-                   <div class="col-lg-8 offset-lg-2">
-                       <h4 class="page-title">Add Schedule</h4>
-                       <a href="{{URL('admin/appointment')}}" class="btn btn-primary btn-rounded float-right"><i class="fa fa-backward"></i> Back</a>
+@section('admin')
 
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col-lg-8 offset-lg-2">
-                       <form class="form" action="{{route('appointment.update',$appointment->id)}}" method="post"
-                             enctype="multipart/form-data">
-                           @csrf
-                           @method('PUT')
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <h4 class="page-title">Update Appointment</h4>
+                    <a href="{{URL('admin/appointment')}}" class="btn btn-primary btn-rounded float-right"><i class="fa fa-backward"></i> Back</a>
 
-                           <div class="form-body">
-                           <div class="row">
-                               @if ($errors->any())
-                                   <div class="alert alert-danger">
-                                       <ul>
-                                           @foreach ($errors->all() as $error)
-                                               <li>{{ $error }}</li>
-                                           @endforeach
-                                       </ul>
-                                   </div>
-                               @endif
-
-                           </div>
-                               <div class="row">
-                                   <div class="col-md-6">
-                                       <div class="form-group">
-                                           <label>Patient Name</label>
-                                           <select class="select" name="patient_id">
-                                               <option>Select</option>
-                                               @foreach ($patient as $patient)
-                                                   <option value="{{ $patient->id }}" {{ $patient->id==$appointment->patient_id ?'selected': '' }}>
-                                                       {{ $patient->fullname }}</option>
-                                               @endforeach
-                                           </select>
-                                           <span class="text-danger"> </span>
-                                       </div>
-                                   </div>
-
-                                   <div class="col-md-6">
-
-                                       <div class="form-group">
-                                           <label>Doctor ---> Department</label>
-                                           <select class="select" name="doctor_id">
-                                               <option>Select Doctor</option>
-                                               @foreach ($doctor as $doctor)
-                                                   <option value="{{ $doctor->id }}" {{ $doctor->id == $appointment->doctor_id ? 'selected' : '' }}>{{ $doctor->user->name  }} ---> {{ $doctor->department->name }}</option>
-                                               @endforeach
-                                           </select>
-                                           <span class="text-danger"> </span>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="row">
-                               <div class="col-md-6">
-                                       <div class="form-group">
-                                           <label>Start date time</label>
-                                           <div class="cal-icon">
-                                               <input type="text" class="form-control datetimepicker" id="datetimepicker3" name="start_date_time" value="{{$appointment->start_date_time}}">
-                                           </div>
-                                       </div>
-                                   </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
 
 
-                                   <div class="col-md-6">
-                                       <div class="form-group">
-                                           <label>end date time</label>
-                                           <div class="time-icon">
-                                               <input type="text" class="form-control datetimepicker" id="datetimepicker3" name="end_date_time" value="{{$appointment->end_date_time}}">
-                                               <span class="text-danger"> </span>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
+                        <div class="form-body">
+                            <div class="row">
+                                    <div class="alert alert-danger" style="display: none">
+                                        <span class="text-danger"> </span>
+                                        <button type="button" class="close"  onclick="closeError()">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
 
-                               <div class="form-group">
-                                   <label class="display-block">Appointment Status</label>
-                                   <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="status" id="product_active" value="Active" {{ $appointment->status == 'Active' ? 'checked' : '' }}>
-                                       <label class="form-check-label" for="product_active">
-                                           Active
-                                       </label>
-                                   </div>
-                                   <div class="form-check form-check-inline">
-                                       <input class="form-check-input" type="radio" name="status" id="product_inactive" value="Inactive" {{ $appointment->status == 'Inactive' ? 'checked' : '' }}>
-                                       <label class="form-check-label" for="product_inactive">
-                                           Inactive
-                                       </label>
-                                   </div>
-                                   <span class="text-danger"> </span>
-                               </div>
-                               <div class="m-t-20 text-center">
-                                   <button class="btn btn-primary submit-btn">update Appointment</button>
-                               </div>
+                            </div>
+                            <div class="row">
+                                <div class="alert alert-success" style="display: none">
+                                    <span class="text-success"> </span>
+                                    <button type="button" class="close"  onclick="closeSuccess()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
 
-                           </div>
-                       </form>
-                   </div>
-               </div>
-           </div>
-       </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Patient Name</label>
+                                        <select class="select" name="patient_id" required>
+                                            <option>Select</option>
+                                            @foreach ($patient as $patient)
+                                                <option value="{{ $patient->id }}" {{ $patient->id==$appointment->patient_id ?'selected': '' }}>
+                                                    {{ $patient->fullname }}</option>
+                                            @endforeach
+                                        </select>
+                                        <span class="text-danger"> </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label>Doctor ---> Department</label>
+                                        <select class="select" name="doctor_id" id="doctor_id" required>
+                                            <option>Select Doctor</option>
+                                            @foreach ($doctor as $doctor)
+                                                <option value="{{ $doctor->id }}" {{ $doctor->id == $appointment->doctor_id ? 'selected' : '' }}>{{ $doctor->user->name  }} ---> {{ $doctor->department->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <span class="text-danger"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Start date time</label>
+                                        <div class="cal-icon">
+                                            <input type="text" class="form-control " id="datetimes" name="start_date_time" value="{{$appointment->start_date_time}}">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>end date time</label>
+                                        <div class="time-icon">
+                                            <input type="text" class="form-control " id="datetimes" name="end_date_time" value="{{$appointment->end_date_time}}" >
+                                            <span class="text-danger"> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Date</label>
+                                        <div class="cal-icon">
+                                            <input type="text" class="form-control datetimepicker" name="date"  id="datetime"  placeholder="Date" required>
+                                        </div>
+                                        <span class="text-danger"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-lg-8 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
+
+                                    <label>Available Appointments</label>
+                                    <br>
+                                    <div class="m-t-20 text-center">
+
+                                        <button id="availability_day" class="btn btn-primary mt-3 wow zoomIn"  onclick="getCode()" style=" width: 150%;">
+                                            Availability Day
+                                        </button>
+                                    </div>
+                                </div>
+                                <div  id="availability_results" class="mt-3" data-toggle="buttons" >
+
+
+                                </div>
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-primary submit-btn" onclick="getCode2()">update Appointment</button>
+                            </div>
+
+                        </div>
+        </div>
+    </div>
+
+            </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 
-   @stop
+    <script>
+        $(function () {
+            $('#datetime').datetimepicker({
+                format: 'YYYY-MM-DD' // تنسيق التاريخ المطلوب
+            });
+        });
+
+
+        function getCode(){
+
+            var doctor=document.getElementById('doctor_id').value;
+            var inputDate = $('#datetime').val();
+
+            // الحصول على التاريخ بالتنسيق المطلوب
+            var formattedDate = moment(inputDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
+            // alert(formattedDate);
+
+            if (!( doctor && inputDate)) {
+                var errorMessage = "Please fill in all fields before updating the appointment.";
+                displayError(errorMessage);
+                return;
+            }
+            if (!( doctor && inputDate)) {
+                var successMessage = "Success updating the appointment.";
+                displayError(successMessage);
+                return;
+            }
+            var  url = "{{ route('getAvailableAppointmentss') }}";
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: url,
+                type: "GET",
+                dataType: 'json',
+
+                data: {
+                    'doctor_id':  doctor , 'date':  formattedDate
+                },
+                success: function (response) {
+                    //  console.log(response.data[0]); // طباعة قيمة المتغير response في وحدة تحكم المستعرض
+
+                    var availabilityResults = document.getElementById('availability_results');
+                    availabilityResults.innerHTML = '';
+                    if (response?.data?.length > 0) {
+                        var timeButtons = document.createElement('div'); // إنشاء عنصر div للأزرار
+                        timeButtons.className = 'button-group btn-group-toggle'; // تعيين الفئة المناسبة للعنصر
+
+                        response.data.forEach(function (time) {
+                            //console.log(time);
+                            var timeButton = document.createElement('label'); // إنشاء عنصر label لزر الموعد
+                            timeButton.className = 'btn btn-secondary'; // تعيين الفئة المناسبة للعنصر
+                            timeButton.textContent = time; // تعيين قيمة الموعد
+
+                            var timeInput = document.createElement('input'); // إنشاء عنصر input للاستخدام الداخلي
+                            timeInput.type = 'radio';
+                            timeInput.name = 'start_date_time';
+                            timeInput.id = 'option';
+                            timeInput.autocomplete = 'off';
+                            timeInput.value = time;
+                            timeButton.appendChild(timeInput); // إضافة عنصر input كابن لعنصر label
+                            timeButtons.appendChild(timeButton); // إضافة عنصر label كابن لعنصر div
+
+                        });
+
+                        availabilityResults.appendChild(timeButtons); // إضافة عنصر div كابن لعنصر النتائج
+                        // alert(availabilityResults)
+                    } else {
+                        var noAvailabilityMessage = document.createElement('p');
+                        noAvailabilityMessage.textContent = 'No availability found.';
+                        availabilityResults.appendChild(noAvailabilityMessage);
+
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });}
+
+
+
+
+        function getCode2(){
+            var patient=document.getElementsByName('patient_id')[0].value;
+            var doctor=document.getElementsByName('doctor_id')[0].value;
+            var dates=document.getElementsByName('date')[0].value;
+            var start_date_times=$("input[type='radio'][name='start_date_time']:checked").val();
+
+            //console.log(start_date_times);
+            if (!(patient && doctor && dates && start_date_times)) {
+                var errorMessage = "Please fill in all fields before updating the appointment.";
+                displayError(errorMessage);
+                return;
+            }
+            if (!(patient && doctor && dates && start_date_times)) {
+                var successMessage = "Success updating the appointment.";
+                displayError(successMessage);
+                return;
+            }
+            var  url = "{{ route('appointment.update',$appointment->id) }}";
+            if (!(patient && doctor && dates && start_date_times)) {
+                var errorMessage = "Please fill in all fields before updating the appointment.";
+                displayError(errorMessage);
+                return;
+            }
+
+            if (!(patient && doctor && dates && start_date_times)) {
+                var successMessage = "Success updating the appointment.";
+                displayError(successMessage);
+                return;
+            }
+            let mail = {
+                _token: "{{ csrf_token() }}",
+                name: 'Mister. ABC',
+                email: 'abc@gmail.com',
+                message: 'OK',
+            }
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: url,
+                type: "POST",
+                dataType: 'json',
+                data:mail,
+
+                data: {
+                    'patient_id':patient, 'doctor_id': doctor ,'date':dates ,'start_date_time' :start_date_times
+                },
+                success: function (response) {
+                    alert("success to  update appointment")
+                }
+                ,
+                error: function (error) {
+                    console.log(error);
+                }
+            });}
+
+
+
+        function displayError(errorMessage) {
+            var errorMessageDiv = document.querySelector('.alert.alert-danger');
+            if (errorMessageDiv) {
+                var errorText = errorMessageDiv.querySelector('.text-danger');
+                if (errorText) {
+                    errorText.textContent = errorMessage;
+                }
+
+                var closeButton = errorMessageDiv.querySelector('.close');
+                if (closeButton) {
+                    closeButton.addEventListener('click', function() {
+                        errorMessageDiv.style.display = 'none';
+                    });
+                }
+
+                errorMessageDiv.style.display = 'block';
+            }
+        }
+        function closeError() {
+            var errorMessageDiv = document.querySelector('.alert.alert-danger');
+            if (errorMessageDiv) {
+                errorMessageDiv.style.display = 'none';
+
+
+            }
+        }
+        function displaySuccess(successMessage) {
+            var successMessageDiv = document.querySelector('.alert.alert-success');
+            if (successMessageDiv) {
+                var successText = successMessageDiv.querySelector('.text-success');
+                if (successText) {
+                    successText.textContent = successMessage;
+                }
+
+                var closeButton = successMessageDiv.querySelector('.close');
+                if (closeButton) {
+                    closeButton.addEventListener('click', function() {
+                        successMessageDiv.style.display = 'none';
+                    });
+                }
+
+                successMessageDiv.style.display = 'block';
+            }
+        }
+
+        function closeSuccess() {
+            var successMessageDiv = document.querySelector('.alert.alert-success');
+            if (successMessageDiv) {
+                successMessageDiv.style.display = 'none';
+            }
+        }
+    </script>
+@stop
 
 

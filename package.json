@@ -28,6 +28,9 @@
     },
     "dependencies": {
         "flag-icons": "^6.7.0",
+        "fullcalendar": "^6.1.8",
+        "fullcalendar-scheduler": "^6.1.8",
+        "jquery-datetimepicker": "^2.5.21",
         "vue": "^3.3.4"
     }
 }

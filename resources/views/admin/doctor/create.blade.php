@@ -33,13 +33,18 @@
                                    <div class="form-group">
                                        <label>First Name <span class="text-danger">*</span></label>
                                        <input class="form-control" type="text" id="firstname" name="firstname">
+                                       @error('firstname')
+                                       <small class="text-danger"> {{ $message }} </small>
+                                       @enderror
                                    </div>
                                </div>
                                <div class="col-sm-6">
                                    <div class="form-group">
                                        <label>Last Name</label>
                                        <input class="form-control" type="text" id="lastname" name="lastname">
-                                       <span class="text-danger"> </span>
+                                       @error('lastname')
+                                       <small class="text-danger"> {{ $message }} </small>
+                                       @enderror
                                    </div>
                                </div>
 
@@ -47,13 +52,18 @@
                                    <div class="form-group">
                                        <label>Email <span class="text-danger">*</span></label>
                                        <input class="form-control" type="email" id="email" name="email">
+                                       @error('email')
+                                       <small class="text-danger"> {{ $message }} </small>
+                                       @enderror
                                    </div>
                                </div>
                                <div class="col-sm-6">
                                    <div class="form-group">
                                        <label>Password</label>
                                        <input class="form-control" type="password" id="password" name="password">
-                                       <span class="text-danger"> </span>
+                                       @error('password')
+                                       <small class="text-danger"> {{ $message }} </small>
+                                       @enderror
                                    </div>
                                </div>
                                <div class="col-sm-6">
@@ -65,8 +75,10 @@
                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
                                        @endforeach
                                    </select>
-                                   <span class="text-danger"> </span>
-
+                                   @error('date_of_birth')
+                                   <small class="text-danger">
+                                   </small>
+                                   @enderror
                                </div>
                                </div>
 
@@ -75,6 +87,11 @@
                                        <label>Date of Birth</label>
                                        <div class="cal-icon">
                                            <input type="text" class="form-control datetimepicker" id="date_of_birth" name="date_of_birth">
+
+                                           @error('date_of_birth')
+                                           <small class="text-danger">
+                                           </small>
+                                           @enderror
                                        </div>
                                    </div>
                                </div>
@@ -91,6 +108,10 @@
                                                <input type="radio" name="gender" class="form-check-input" value="F">Female
                                            </label>
                                        </div>
+                                       @error('gender')
+                                       <small class="text-danger">
+                                       </small>
+                                       @enderror
                                    </div>
                                </div>
                                <div class="col-sm-12">
@@ -99,8 +120,10 @@
                                            <div class="form-group">
                                                <label>Address</label>
                                                <input type="text" class="form-control " id="address" name="address">
-                                               <span class="text-danger"> </span>
-
+                                               @error('address')
+                                               <small class="text-danger">
+                                               </small>
+                                               @enderror
                                            </div>
                                        </div>
 
@@ -110,8 +133,10 @@
                                    <div class="form-group">
                                        <label>Phone </label>
                                        <input class="form-control" type="text" id="phone" name="phone">
-                                       <span class="text-danger"> </span>
-
+                                       @error('phone')
+                                       <small class="text-danger">
+                                       </small>
+                                       @enderror
                                    </div>
                                </div>
                                <div class="col-sm-6">
@@ -119,36 +144,20 @@
                                        <label>Avatar</label>
                                        <div class="profile-upload">
                                            <div class="upload-img">
-                                               <span class="text-danger"> </span>
+
                                            </div>
                                            <div class="upload-input">
                                                <input type="file" class="form-control" name="avatar">
+                                               @error('avatar')
+                                               <small class="text-danger">
+                                               </small>
+                                               @enderror
                                            </div>
                                        </div>
                                    </div>
                                </div>
                            </div>
-                           <div class="form-group">
-                               <label>Short Biography</label>
-                               <textarea class="form-control" rows="3" cols="30" name="biography"></textarea>
-                           </div>
-                           <div class="form-group">
-                               <label class="display-block">Status</label>
-                               <div class="form-check form-check-inline">
-                                   <input class="form-check-input" type="radio" name="status" id="doctor_active" value="1" checked>
-                                   <label class="form-check-label" for="doctor_active">
-                                       Active
-                                   </label>
-                               </div>
-                               <div class="form-check form-check-inline">
-                                   <input class="form-check-input" type="radio" name="status" id="doctor_inactive" value="0">
-                                   <label class="form-check-label" for="doctor_inactive">
-                                       Inactive
-                                   </label>
-                               </div>
-                               <span class="text-danger"> </span>
 
-                           </div>
                            <div class="m-t-20 text-center">
                                <button class="btn btn-primary submit-btn">Create Doctor</button>
                            </div>

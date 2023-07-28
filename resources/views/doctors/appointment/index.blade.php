@@ -8,9 +8,7 @@
             <div class="col-sm-8 col-4">
                 <h4 class="page-title">Calendar</h4>
             </div>
-            <div class="col-sm-4 col-8 text-right m-b-30">
-                <a href="#" class="btn btn-primary btn-rounded" data-toggle="modal" data-target="#add_event"><i class="fa fa-plus"></i> Add Event</a>
-            </div>
+
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -27,6 +25,30 @@
 </div>
 
 
+@push('scripts')
 
 
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/index.global.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                events: @json($myEvents),
+
+
+            });
+            calendar.render();
+
+
+
+        });
+    </script>
+
+@endpush
 @stop

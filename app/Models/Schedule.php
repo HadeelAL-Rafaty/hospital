@@ -14,7 +14,6 @@ class Schedule extends Model
         'available_days',
         'start_time',
         'end_time',
-        'status',
     ];
 
     public function doctor()

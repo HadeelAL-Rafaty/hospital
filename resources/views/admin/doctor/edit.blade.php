@@ -42,15 +42,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input class="form-control" type="password" name="password" value="{{ $doctor->user->password }}">
-                                    @error('password')
-                                    <small class="text-danger"> {{ $message }} </small>
-                                    @enderror
-                                </div>
-                            </div>
+
                             <div class="col-sm-6">
                                 <div class="form-group ">
                                     <label>Department</label>
@@ -64,7 +56,6 @@
                                     @error('department_id')
                                     <small class="text-danger"> {{ $message }} </small>
                                     @enderror
-                                    <span class="text-danger"> </span>
 
                                 </div>
                             </div>
@@ -135,28 +126,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Short Biography</label>
-                            <textarea class="form-control" rows="3" cols="30"  name="biography">{{ $doctor->biography }}</textarea>
-                            @error('biography')
-                            <small class="text-danger"> {{ $message }} </small>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label class="display-block">Status</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" id="doctor_active" value="1" {{ $doctor->status == '1' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="doctor_active">
-                                    Active
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" id="doctor_inactive" value="0" {{ $doctor->status == '0' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="doctor_inactive">
-                                    Inactive
-                                </label>
-                            </div>
-                        </div>
+
+
                         <div class="m-t-20 text-center">
                             <button class="btn btn-primary submit-btn">Update</button>
                         </div>

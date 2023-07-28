@@ -9,21 +9,21 @@
                        <a href="{{URL('admin/appointment')}}" class="btn btn-primary btn-rounded float-right"><i class="fa fa-backward"></i> Back</a>
                    </div>
                </div>
+               <br><br>
+
                <div class="row">
                    <div class="col-lg-8 offset-lg-2">
 
                            <div class="form-body">
-                           <div class="row">
-                                   @if ($errors->any())
-                                       <div class="alert alert-danger">
-                                           <ul>
-                                               @foreach ($errors->all() as $error)
-                                                   <li>{{ $error }}</li>
-                                               @endforeach
-                                           </ul>
-                                       </div>
-                                   @endif
-                           </div>
+                               <div class="row">
+                                   <div class="alert alert-danger" style="display: none">
+                                       <span class="text-danger"> </span>
+                                       <button type="button" class="close"  onclick="closeError()">
+                                           <span aria-hidden="true">&times;</span>
+                                       </button>
+                                   </div>
+
+                               </div>
                                        <div class="row">
                                        <div class="col-md-6">
                                    <div class="form-group">
@@ -112,7 +112,11 @@
                var formattedDate = moment(inputDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
                // alert(formattedDate);
 
-
+               if (!( doctor && inputDate)) {
+                   var errorMessage = "Please fill in all fields before Add the Appointment.";
+                   displayError(errorMessage);
+                   return;
+               }
 
                var  url = "{{ route('getAvailableAppointmentss') }}";
 
@@ -175,10 +179,19 @@
                var doctor=document.getElementsByName('doctor_id')[0].value;
                var dates=document.getElementsByName('date')[0].value;
                var start_date_times=$("input[type='radio'][name='start_date_time']:checked").val();
-               ;
-               //console.log(start_date_times);
 
+               //console.log(start_date_times);
+               if (!(patient && doctor && dates && start_date_times)) {
+                   var errorMessage = "Please fill in all fields before Add the Appointment.";
+                   displayError(errorMessage);
+                   return;
+               }
                var  url = "{{ route('GetAppointmentAddss') }}";
+               if (!(patient && doctor && dates && start_date_times)) {
+                   var errorMessage = "Please fill in all fields before Add the Appointment.";
+                   displayError(errorMessage);
+                   return;
+               }
                let mail = {
                    _token: "{{ csrf_token() }}",
                    name: 'Mister. ABC',
@@ -207,6 +220,32 @@
                });}
 
 
+           function displayError(errorMessage) {
+               var errorMessageDiv = document.querySelector('.alert.alert-danger');
+               if (errorMessageDiv) {
+                   var errorText = errorMessageDiv.querySelector('.text-danger');
+                   if (errorText) {
+                       errorText.textContent = errorMessage;
+                   }
+
+                   var closeButton = errorMessageDiv.querySelector('.close');
+                   if (closeButton) {
+                       closeButton.addEventListener('click', function() {
+                           errorMessageDiv.style.display = 'none';
+                       });
+                   }
+
+                   errorMessageDiv.style.display = 'block';
+               }
+           }
+           function closeError() {
+               var errorMessageDiv = document.querySelector('.alert.alert-danger');
+               if (errorMessageDiv) {
+                   errorMessageDiv.style.display = 'none';
+
+
+               }
+           }
 
 
        </script>

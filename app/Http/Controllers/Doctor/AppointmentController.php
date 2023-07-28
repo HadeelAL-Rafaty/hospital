@@ -23,9 +23,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointment = Appointment::all();
-
-        return view('doctors.appointment.index', compact('appointment'));
+//        return view('doctors.appointment.index');
     }
 
     /**
@@ -33,39 +31,26 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /*
-    public function getEvents(Request $request)
+
+
+    public function __invoke()
     {
+        $myEvents = [];
         $doctor = Auth::user()->doctor;
+
         $appointments = $doctor->appointments;
+        $appointments->load('patient');
+       // $appointments = Appointment::with(['patient'])->get();
 
-        $events=array();
-
-        $appointments = Appointment::all();
-        foreach ($appointments as $appointment){
-            $events[]=[
-                'start'=>$appointment->start_date_time,
-                'end'=>$appointment->end_date_time,
-
-            ];
-
-        }
-        return response()->json($events);
-    }*/
-
-    public function getEvents(Request $request)
-    {
-        $events = Appointment::all();
-
-        $formattedEvents = [];
-        foreach ($events as $event) {
-            $formattedEvents[] = [
-                'start' => $event->start_date_time,
-                'end' => $event->end_date_time,
+        foreach ($appointments as $appointment) {
+            $myEvents[] = [
+                'title' => $appointment->patient->fullname ,
+                'start' => $appointment->start_date_time,
+                'end' => $appointment->end_date_time,
             ];
         }
-        return response()->json($formattedEvents);
+        return view('doctors.appointment.index',compact('myEvents' ,'doctor'))  ;
     }
-
 }
+
 

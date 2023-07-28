@@ -22,8 +22,6 @@ return new class extends Migration
             $table->text('address');
             $table->string('phone');
             $table->string('avatar');
-            $table->text('biography');
-            $table->tinyInteger('status')->default(0);
             $table->unsignedBigInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departmentes')->onDelete('cascade');
             $table->timestamps();

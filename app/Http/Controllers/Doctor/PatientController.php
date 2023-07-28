@@ -77,16 +77,7 @@ class PatientController extends Controller
 
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Schedule $schedule)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -98,56 +89,13 @@ class PatientController extends Controller
     {
         $patient=Patient::findOrFail($id);
         $appointment = Appointment::findOrFail($id);
+        $doctor = Doctor::findOrFail($appointment->doctor_id);
 
-        return view('doctors.patient.add_notes' , compact('appointment'));
+        return view('doctors.patient.add_notes' , compact('appointment' , 'doctor'));
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePatientRequest  $request
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePatientRequest $request, $patient_id)
-    {
-        $firstname= $request->input('firstname');
-        $lastname = $request->input('lastname');
-        $date_of_birth = $request->input('date_of_birth');
-        $email = $request->input('email');
-        $password = $request->input('password');
-        $gender = $request->input('gender');
-        $address = $request->input('address');
-        $phone= $request->input('phone');
-        $status= $request->input('status');
 
 
-        $patient=Patient::find($patient_id);
-        $patient->firstname = $firstname;
-        $patient->lastname = $lastname;
-        $patient->date_of_birth = $date_of_birth;
-        $patient->email = $email;
-        $patient->password = $password;
-        $patient->gender = $gender;
-        $patient->phone = $phone;
-        $patient->status = $status;
-        $patient->address = $address;
 
-        $patient->update();
-        // dd($request);
-        $request->session()->flash('success', 'Patient Updated Successfully.');
-        return redirect('admin/patient');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Schedule $schedule)
-    {
-        //
-    }
 }

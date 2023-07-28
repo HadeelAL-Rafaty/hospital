@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -32,11 +35,25 @@ class HomeController extends Controller
 
         return view('admin.dashboard', compact('patient','doctor','appointments'));
     }
-    public function index1()
+
+
+
+
+    public function index2()
     {
-        return view('patients.home');
-    } public function index2()
-{
-    return view('doctors.dashboardDoctor');
-}
+        $doctor = Auth::user()->doctor;
+        $numPatients = DB::table('appointments')
+            ->where('doctor_id', $doctor->id)
+            ->distinct('patient_id')
+            ->count();
+        $currentDate = Carbon::now()->toDateString();
+
+        $appointments = $doctor->appointments()->whereDate('start_date_time', $currentDate)->get();
+        $numAppointments = $appointments->count();
+
+
+
+        return view('doctors.dashboardDoctor', compact('numAppointments' ,'doctor','numPatients'));
+    }
+
 }

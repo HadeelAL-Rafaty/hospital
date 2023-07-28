@@ -1,7 +1,7 @@
 <div class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
-            <ul>
+            <ul >
                 <li class="menu-title">Main</li>
                 <li class="active">
                     <a href="{{ URL('admin/dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>

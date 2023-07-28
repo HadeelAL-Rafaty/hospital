@@ -12,9 +12,9 @@
             @endif
         </div>
       <div class="container text-center wow zoomIn">
-        <span class="subhead">Provide best quality healthcare for you</span>
-        <h1 class="display-4">Al-Saa'a Medical group</h1>
-        <a href="{{('doctors')}}" class="btn btn-primary">Let's Consult</a>
+        <span class="subhead">{{__('Provide best quality healthcare for you')}}</span>
+        <h1 class="display-4">{{__('Al-Saaَa Medical group')}}</h1>
+        <a href="{{('doctors')}}" class="btn btn-primary">{{__('Letَs Consult')}}</a>
       </div>
     </div>
   </div>
@@ -30,9 +30,9 @@
             <div class="box text-center" >
               <i class="fa fa-check fa-3x circled bg-skin"></i>
               <img src="{{asset ('images/check.png')}}" alt="" width="100" height="100">
-              <h4 class="h-bold" style="padding-top: 20px; font-weight: bold;">Make an appoinment</h4>
+              <h4 class="h-bold" style="padding-top: 20px; font-weight: bold;">{{__('Make an appoinment')}}</h4>
               <p style="padding-top: 10px; color: gray;">
-              Book your appointment through the website and we will contact you as soon as possible to inform you of your appointment and you will be reminded of it
+                  {{__('Book your appointment through the website and we will contact you as soon as possible to inform you of your appointment and you will be reminded of it')}}
               </p>
             </div>
           </div>
@@ -43,9 +43,9 @@
 
               <i class="fa fa-list-alt fa-3x circled bg-skin"></i>
               <img src="{{asset ('images/chat.png')}}" alt="" width="100" height="100">
-              <h4 class="h-bold" style="padding-top: 20px; font-weight: bold;">Request consulting</h4>
+              <h4 class="h-bold" style="padding-top: 20px; font-weight: bold;">{{__('Request consulting')}}</h4>
               <p style="padding-top: 10px; color: gray;">
-              Ask your doctor and consult him about what you need through the doctor's profile in case you want a quick consultation
+                  {{__('Ask your doctor and consult him about what you need through the doctorًs profile in case you want a quick consultation')}}
               </p>
             </div>
           </div>
@@ -55,9 +55,9 @@
             <div class="box text-center">
               <i class="fa fa-user-md fa-3x circled bg-skin"></i>
               <img src="{{asset ('images/nephrologist.png')}}" alt="" width="100" height="100">
-              <h4 class="h-bold" style="padding-top: 20px; font-weight: bold;">Help by specialist</h4>
+              <h4 class="h-bold" style="padding-top: 20px; font-weight: bold;">{{__('Help by specialist')}}</h4>
               <p style="padding-top: 10px; color: gray;">
-              A complex of clinics equipped with the latest medical and experience administrative competencies to meet the needs of different patients
+                  {{__('A complex of clinics equipped with the latest medical and experience administrative competencies to meet the needs of different patients')}}
               </p>
             </div>
           </div>
@@ -100,88 +100,30 @@
         </div>
       </div>
     </div> <!-- .bg-light -->
-  </div> <!-- .bg-light -->
 
   <div class="page-section">
     <div class="container">
       <h1 class="text-center mb-5 wow fadeInUp">Our Doctors</h1>
 
       <div class="owl-carousel wow fadeInUp" id="doctorSlideshow">
-        <div class="item">
-          <div class="card-doctor">
-            <div class="header">
-              <img src="{{asset ('images/doctors/doctor_1.jpg')}}" alt="">
-              <div class="meta">
-                <a href="#"><span class="mai-call"></span></a>
-                <a href="#"><span class="mai-logo-whatsapp"></span></a>
-              </div>
-            </div>
-            <div class="body">
-              <p class="text-xl mb-0">Dr. Stein Albert</p>
-              <span class="text-sm text-grey">Cardiology</span>
-            </div>
+          @foreach ($doctor as $doctors)
+
+          <div class="item">
+
+
+                  <div class="card-doctor">
+                      <div class="header">
+                          <img src="{{ asset('auploads/doctor/'.$doctors->avatar) }}" alt="">
+
+                      </div>
+                      <div class="body">
+                          <p class="text-xl mb-0">Dr. {{ $doctors->user->name ?? '' }}</p>
+                          <span class="text-sm text-grey">{{ $doctors->department->name }}</span>
+                      </div>
+                  </div>
           </div>
-        </div>
-        <div class="item">
-          <div class="card-doctor">
-            <div class="header">
-              <img src="{{asset ('images/doctors/doctor_2.jpg')}}" alt="">
-              <div class="meta">
-                <a href="#"><span class="mai-call"></span></a>
-                <a href="#"><span class="mai-logo-whatsapp"></span></a>
-              </div>
-            </div>
-            <div class="body">
-              <p class="text-xl mb-0">Dr. Alexa Melvin</p>
-              <span class="text-sm text-grey">Dental</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="card-doctor">
-            <div class="header">
-              <img src="{{asset ('images/doctors/doctor_3.jpg')}}" alt="">
-              <div class="meta">
-                <a href="#"><span class="mai-call"></span></a>
-                <a href="#"><span class="mai-logo-whatsapp"></span></a>
-              </div>
-            </div>
-            <div class="body">
-              <p class="text-xl mb-0">Dr. Rebecca Steffany</p>
-              <span class="text-sm text-grey">General Health</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="card-doctor">
-            <div class="header">
-              <img src="{{asset ('images/doctors/doctor_3.jpg')}}" alt="">
-              <div class="meta">
-                <a href="#"><span class="mai-call"></span></a>
-                <a href="#"><span class="mai-logo-whatsapp"></span></a>
-              </div>
-            </div>
-            <div class="body">
-              <p class="text-xl mb-0">Dr. Rebecca Steffany</p>
-              <span class="text-sm text-grey">General Health</span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="card-doctor">
-            <div class="header">
-              <img src="{{asset ('images/doctors/doctor_3.jpg')}}" alt="">
-              <div class="meta">
-                <a href="#"><span class="mai-call"></span></a>
-                <a href="#"><span class="mai-logo-whatsapp"></span></a>
-              </div>
-            </div>
-            <div class="body">
-              <p class="text-xl mb-0">Dr. Rebecca Steffany</p>
-              <span class="text-sm text-grey">General Health</span>
-            </div>
-          </div>
-        </div>
+
+          @endforeach
       </div>
     </div>
   </div>

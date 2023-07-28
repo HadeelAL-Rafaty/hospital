@@ -26,12 +26,9 @@ class UpdateDoctorRequest extends FormRequest
         return [
             'name'=> 'required|string|max:255',
             'department'=> 'nullable',
-            'phone'=> 'required|string|min:8|max:11',
-            'password' => 'required|min:8',
+            'phone' => ['required', 'string', 'regex:/^059|056\d{7}$/'],
             'avatar'=> 'nullable|mimes:png,jpg,jpeg',
-            'biography'=> 'required|string',
             'gender'=> 'nullable',
-            'status'=> 'required|integer|in:0,1',
             'address'=>'required|string',
             'date_of_birth'=> 'required|string|before:today',
         ];

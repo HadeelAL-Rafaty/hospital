@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAppointmentRequest;
+use App\Http\Requests\StorePatientToAppRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
 use App\Models\Department;
@@ -22,9 +23,11 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointment=Appointment::all();
 
-        return view('admin.appointment.index',compact('appointment'));
+
+        $schedule = Schedule::all();
+        $schedule->load('doctor.department');
+        return view('schedule', compact('schedule'));
     }
 
     /**
@@ -35,7 +38,7 @@ class AppointmentController extends Controller
     public function add_doctor()
     {
 
-        $doctors=Doctor::where('status', '1')->get();
+        $doctors=Doctor::all();
         return view('appointment',compact('doctors'));
     }
 
@@ -107,7 +110,7 @@ class AppointmentController extends Controller
      * @param  \App\Http\Requests\StoreAppointmentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(\Illuminate\Http\Request $request)
+    public function store(StorePatientToAppRequest $request)
     {
         $fullname=$request->input('fullname');
         $idnumber=$request->input('idnumber');
@@ -149,65 +152,10 @@ if(count($Patient)==0) {
         return response()->json(['message' => 'Success'], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Appointment $appointment)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $doctor=Doctor::all();
-        $patient=Patient::all();
-        $appointment=Appointment::findOrFail($id);
-        return view('admin.appointment.edit' , compact('doctor','patient','appointment'));
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAppointmentRequest  $request
-     * @param  \App\Models\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAppointmentRequest $request,  $appointment_id)
-    {
-        $doctor_id = $request->input('doctor_id');
-        $patient_id = $request->input('patient_id');
-        $start_date_time = $request->input('start_date_time');
-        $end_date_time= $request->input('end_date_time');
 
-        $appointment=Appointment::find($appointment_id);
-        $appointment->doctor_id = $doctor_id;
-        $appointment->patient_id  = $patient_id ;
-        $appointment->start_date_time = $start_date_time;
-        $appointment->end_date_time = $end_date_time;
-        $appointment->update();
-        //  dd($request);
-        $request->session()->flash('success', 'Appointment Updated Successfully.');
-        return redirect('admin/appointment');
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Appointment $appointment)
-    {
-        //
-    }
+
 }
 

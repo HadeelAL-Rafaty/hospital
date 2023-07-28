@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Appointment extends Model
 {
@@ -12,6 +13,18 @@ class Appointment extends Model
     public static function countAppointments()
     {
         $count =Appointment::count();
+        return $count;
+    }
+    public static function count2Appointments()
+    {
+
+
+        $doctor = Auth::user()->doctor;
+
+        $appointments = $doctor->appointments;
+        $count = $appointments->count();
+
+
         return $count;
     }
     public function doctor()

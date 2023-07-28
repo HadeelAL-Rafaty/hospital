@@ -40,18 +40,17 @@ class DepartmentController extends Controller
     public function store(StoreDepartmentRequest $request)
     {
         $name= $request->input('name');
-        $status= $request->input('status');
 
 
 
 
         $department =new Department();
         $department->name = $name;
-        $department->status = $status;
         $department->save();
         // dd($request);
+        $request->session()->flash('success', 'Department Add Successfully.');
 
-        return redirect('admin/department')->with('massage', 'Department Add Successfully');
+        return redirect('admin/department');
     }
 
     /**
@@ -71,8 +70,9 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function edit(Department $department)
+    public function edit( $department)
     {
+        $department = Department::findOrFail($department);
 
         return view('admin.department.edit' , compact('department'));
     }
@@ -84,16 +84,12 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDepartmentRequest $request,  $department)
+    public function update(UpdateDepartmentRequest $request,  $id)
     {
         $name= $request->input('name');
-        $status= $request->input('status');
-        $department_id = $request->input('department_id');
 
-        $department=Department::find($department);
+        $department=Department::find($id);
         $department->name = $name;
-        $department->department_id = $department_id;
-        $department->status = $status;
 
 
         $department->update();
@@ -106,9 +102,9 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $department)
+    public function destroy( $id)
     {
-        $department = Department::find($department);
+        $department = Department::find($id);
         $department->delete();
         return redirect('admin/department')->with('success' , 'Department Delete Successfully');
     }

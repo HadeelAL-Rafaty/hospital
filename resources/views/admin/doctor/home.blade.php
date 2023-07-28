@@ -33,7 +33,7 @@
                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="{{ URL('admin/doctor/edit/'.$doctor->id.'/'.$doctor->user_id) }}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                    <form method="POST" action="{{url('admin/doctor/delete/'. $doctor->id)}}" >
+                                    <form method="POST" action="{{url('admin/doctor/delete/'. $doctor->id.'/'.$doctor->user_id)}}" >
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="dropdown-item" > <i class="fa fa-trash-o m-r-5"></i>  Delete  </button>

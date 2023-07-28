@@ -30,7 +30,9 @@
                                    <div class="form-group">
                                        <label>Full Name</label>
                                        <input class="form-control" type="text" name="fullname">
-                                       <span class="text-danger"> </span>
+                                       @error('fullname')
+                                       <small class="text-danger">{{ $message }}</small>
+                                       @enderror
                                    </div>
                                </div>
 
@@ -38,7 +40,9 @@
                                    <div class="form-group">
                                        <label>ID Number <span class="text-danger">*</span></label>
                                        <input class="form-control" type="text" name="idnumber">
-                                       <span class="text-danger"> </span>
+                                       @error('idnumber')
+                                       <small class="text-danger">{{ $message }}</small>
+                                       @enderror
                                    </div>
                                </div>
 
@@ -47,7 +51,9 @@
                                    <div class="form-group">
                                        <label>Phone </label>
                                        <input class="form-control" type="text" name="phone">
-                                       <span class="text-danger"> </span>
+                                       @error('phone')
+                                       <small class="text-danger">{{ $message }}</small>
+                                       @enderror
                                    </div>
 
                                </div>

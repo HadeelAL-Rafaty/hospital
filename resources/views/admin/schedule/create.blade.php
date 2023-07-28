@@ -12,22 +12,25 @@
                </div>
                <div class="row">
                    <div class="col-lg-8 offset-lg-2">
+
                        <form class="form" action="{{URL ('admin/schedule')}}" method="post"
                              enctype="multipart/form-data">
                            @csrf
                            <div class="form-body">
-                           <div class="row">
-                               @if ($errors->any())
-                                   <div class="alert alert-danger">
-                                       <ul>
-                                           @foreach ($errors->all() as $error)
-                                               <li>{{ $error }}</li>
-                                           @endforeach
-                                       </ul>
-                                   </div>
-                               @endif
+                               <div class="row">
+                                   @if ($errors->any())
+                                       <div class="alert alert-danger">
+                                           <ul>
+                                               @foreach ($errors->all() as $error)
+                                                   <li>{{ $error }}</li>
+                                               @endforeach
+                                           </ul>
+                                       </div>
+                                   @endif
 
-                           </div>
+                               </div>
+
+
                            <div class="row">
                                <div class="col-md-6">
                                    <div class="form-group">
@@ -38,7 +41,9 @@
                                                <option value="{{ $doctor->id }}">{{ $doctor->user->name ?? '' }}</option>
                                            @endforeach
                                        </select>
-                                       <span class="text-danger"> </span>
+                                       @error('doctor_id')
+                                       <small class="text-danger"> {{ $message }} </small>
+                                       @enderror
                                    </div>
                                </div>
                                <div class="col-md-6">
@@ -54,7 +59,9 @@
                                            <option value="5">Friday</option>
                                            <option value="6">Saturday</option>
                                        </select>
-                                       <span class="text-danger"> </span>
+                                       @error('available_days')
+                                       <small class="text-danger"> {{ $message }} </small>
+                                       @enderror
                                    </div>
                                </div>
                            </div>
@@ -64,8 +71,10 @@
                                        <label>Start Time</label>
                                        <div class="time-icon">
                                            <input type="text" class="form-control" id="datetimepicker3" name="start_time">
-                                           <span class="text-danger"> </span>
                                        </div>
+                                       @error('start_time')
+                                       <small class="text-danger"> {{ $message }} </small>
+                                       @enderror
                                    </div>
                                </div>
                                <div class="col-md-6">
@@ -73,27 +82,13 @@
                                        <label>End Time</label>
                                        <div class="time-icon">
                                            <input type="text" class="form-control" id="datetimepicker4" name="end_time">
-                                           <span class="text-danger"> </span>
                                        </div>
+                                       @error('end_time')
+                                       <small class="text-danger"> {{ $message }} </small>
+                                       @enderror
                                    </div>
                                </div>
                            </div>
-                           <div class="form-group">
-                               <label class="display-block">Schedule Status</label>
-                               <div class="form-check form-check-inline">
-                                   <input class="form-check-input" type="radio" name="status" id="product_active" value="Active" checked>
-                                   <label class="form-check-label" for="product_active">
-                                       Active
-                                   </label>
-                               </div>
-                               <div class="form-check form-check-inline">
-                                   <input class="form-check-input" type="radio" name="status" id="product_inactive" value="Inactive">
-                                   <label class="form-check-label" for="product_inactive">
-                                       Inactive
-                                   </label>
-                               </div>
-                           </div>
-                           <span class="text-danger"> </span>
                            <div class="m-t-20 text-center">
                                <button class="btn btn-primary submit-btn">Create Schedule</button>
                            </div>

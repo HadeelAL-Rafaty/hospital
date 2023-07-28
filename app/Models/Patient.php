@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Patient extends Model
 {
@@ -26,6 +27,8 @@ class Patient extends Model
         $count = Patient::count();
         return $count;
     }
+
+
 public function appointment()
 {
     return $this->hasMany(Appointment::class, 'patient_id', 'id');

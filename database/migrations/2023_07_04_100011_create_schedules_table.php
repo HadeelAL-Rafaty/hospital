@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('available_days');
             $table->string('start_time');
             $table->string('end_time');
-            $table->string('status')->comment('Active , Inactive');;
             $table->timestamps();
             $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
 

@@ -13,10 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return app()->getLocale();
-    return view('index');
-});
+
+
+//    Route::get('/', function()
+//    {
+//        return view('index');
+//    });
+
+Route::get('/',[App\Http\Controllers\Frontend\DoctorController::class,'index2']);
+
+
+
+
 
 Route::get('appointment', function () {
     return view('appointment');
@@ -29,18 +37,22 @@ Route::get('about', function () {
 Route::get('contact', function () {
     return view('contact');
 });
+Route::get('patient', function () {
+    return view('patient');
+});
+Route::get('schedule',[App\Http\Controllers\Frontend\AppointmentController::class,'index']);
 
-Route::get('doctors', function () {
+/*Route::get('doctors', function () {
     return view('doctors');
-});
+});*/
+Route::get('doctors',[App\Http\Controllers\Frontend\DoctorController::class,'index']);
 
-Route::get('/index', function () {
-    return view('index');
-})->name('index');
+//Route::get('/index', function () {
+//    return view('index');
+//})->name('index');
+Route::get('index',[App\Http\Controllers\Frontend\DoctorController::class,'index2']);
+Route::get('get-patient-info', [App\Http\Controllers\Frontend\DoctorController::class, 'getPatientInfo']);
 
-Route::get('loginpage', function () {
-    return view('loginpage');
-});
 //
 
 Route::get('appointment',[App\Http\Controllers\Frontend\AppointmentController::class,'add_doctor']);
@@ -68,8 +80,7 @@ Route::prefix('doctors')->middleware(['auth','doctor'])->group (function() {
     Route::get('schedule/edit/{id}', [App\Http\Controllers\Doctor\ScheduleController::class, 'edit']);
     Route::put('schedule/update/{id}', [App\Http\Controllers\Doctor\ScheduleController::class, 'update'])->name('schedules.update');
 //appointment
-    Route::get('appointment',[App\Http\Controllers\Doctor\AppointmentController::class,'index']);
-    Route::get('/get-events', [App\Http\Controllers\Doctor\AppointmentController::class, 'getEvents']);
+    Route::get('get-events', [App\Http\Controllers\Doctor\AppointmentController::class,'__invoke']);
 
 
 });
@@ -78,6 +89,9 @@ Route::get('patient/home', [App\Http\Controllers\HomeController::class, 'index1'
 Route::prefix('patient')->middleware(['auth','patient'])->group (function() {});
 
 
+
+Route::group(['prefix' => \Mcamara\LaravelLocalization\Facades\LaravelLocalization::setLocale()], function()
+{
 Route::get('admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     //Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
@@ -94,7 +108,7 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::put('doctor/update/{user_id}/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'update'])->name('doctors.update');
     Route::get('doctor/emailview/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'emailview']);
     Route::post('doctor/sendemail/{id}',[App\Http\Controllers\Admin\DoctorController::class,'sendemail']);
-    Route::delete('/doctor/delete/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'destroy']);
+    Route::delete('/doctor/delete/{user_id}/{id}', [App\Http\Controllers\Admin\DoctorController::class, 'destroy']);
 
 
 
@@ -103,9 +117,9 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::get('department',[App\Http\Controllers\Admin\DepartmentController::class,'index']);
     Route::get('department/create',[App\Http\Controllers\Admin\DepartmentController::class,'create']);
     Route::post('department',[App\Http\Controllers\Admin\DepartmentController::class,'store']);
-    Route::get('/department/{department_id}', [App\Http\Controllers\Admin\DepartmentController::class, 'edit']);
-    Route::put('/department/update/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'update'])->name('department.update');
-    Route::delete('/department/delete/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'destroy']);
+    Route::get('department/edit/{department_id}', [App\Http\Controllers\Admin\DepartmentController::class, 'edit']);
+    Route::put('department/update/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'update'])->name('department.update');
+    Route::delete('department/delete/{id}', [App\Http\Controllers\Admin\DepartmentController::class, 'destroy']);
 
 
 // Schedule Route
@@ -132,10 +146,11 @@ Route::prefix('admin')->middleware(['auth','admin'])->group (function() {
     Route::get('get_Available_Appointment',[App\Http\Controllers\Admin\AppointmentController::class,'getAvailableAppointment'])->name('getAvailableAppointmentss');
     Route::post('appointment',[App\Http\Controllers\Admin\AppointmentController::class,'store'])->name('GetAppointmentAddss');
     Route::get('appointment/edit/{id}', [App\Http\Controllers\Admin\AppointmentController::class, 'edit']);
-    Route::put('appointment/update/{id}', [App\Http\Controllers\Admin\AppointmentController::class, 'update'])->name('appointment.update');
-    Route::delete('/appointment/delete/{id}', [App\Http\Controllers\Admin\AppointmentController::class, 'destroy']);
+    Route::post('appointment/update/{id}', [App\Http\Controllers\Admin\AppointmentController::class, 'update'])->name('appointment.update');
+    Route::delete('appointment/delete/{id}', [App\Http\Controllers\Admin\AppointmentController::class, 'destroy']);
 
 });
 
+});
 
 
